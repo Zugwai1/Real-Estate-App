@@ -9,7 +9,7 @@ from auth_app.repositories.inteface.AddressRepository import AddressRepository
 from auth_app.services.interface.AddressService import AddressService
 
 
-class DefaultAddressRepository(AddressService):
+class DefaultAddressService(AddressService):
     repository: AddressRepository
 
     def __init__(self, repository: AddressRepository):
