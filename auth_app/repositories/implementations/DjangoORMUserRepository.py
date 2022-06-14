@@ -3,7 +3,7 @@ import uuid
 from typing import List
 from django.db import *
 
-from auth_app.dto.UserDto import CreateDto, GetUserDto, EditDto
+from auth_app.dto.UserDto import CreateDto, GetDto, EditDto
 from auth_app.models import User
 from auth_app.repositories.inteface.UserRepository import UserRepository
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
@@ -33,8 +33,8 @@ class DjangoORMUserRepository(UserRepository):
             logging.error(f"{ex} ,occurred while creating user")
             raise ex
 
-    def list(self) -> List[GetUserDto]:
-        result: List[GetUserDto] = []
+    def list(self) -> List[GetDto]:
+        result: List[GetDto] = []
         users = list(User.objects.values(
             "id",
             "first_name",
@@ -48,7 +48,7 @@ class DjangoORMUserRepository(UserRepository):
             "address"
         ))
         for user in users:
-            item = GetUserDto(
+            item = GetDto(
                 id=user["id"],
                 first_name=user["first_name"],
                 last_name=user["last_name"],
@@ -63,10 +63,10 @@ class DjangoORMUserRepository(UserRepository):
             result.append(item)
         return result
 
-    def get_by_id(self, id: uuid.UUID) -> GetUserDto | None:
+    def get_by_id(self, id: uuid.UUID) -> GetDto | None:
         try:
             result = User.objects.get(id=id)
-            user = GetUserDto()
+            user = GetDto()
             user.username = result.username,
             user.DOB = result.DOB,
             user.first_name = result.first_name,
@@ -81,10 +81,10 @@ class DjangoORMUserRepository(UserRepository):
             logging.error(f"{ex} Occurred while creating user")
             raise ex
 
-    def get_by_email(self, email: str) -> GetUserDto | None:
+    def get_by_email(self, email: str) -> GetDto | None:
         try:
             result = User.objects.get(email=email)
-            user = GetUserDto(
+            user = GetDto(
                 id=result.id,
                 username=result.username,
                 DOB=result.DOB,

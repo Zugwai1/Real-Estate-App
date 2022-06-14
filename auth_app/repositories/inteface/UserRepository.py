@@ -2,7 +2,7 @@ import uuid
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from auth_app.dto.UserDto import CreateDto, GetUserDto, EditDto
+from auth_app.dto.UserDto import CreateDto, GetDto, EditDto
 from auth_app.models import User
 
 
@@ -15,17 +15,17 @@ class UserRepository(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def list(self) -> List[GetUserDto]:
+    def list(self) -> List[GetDto]:
         """List user objects"""
         raise NotImplementedError
 
     @abstractmethod
-    def get_by_id(self, id: uuid.UUID) -> GetUserDto | None:
+    def get_by_id(self, id: uuid.UUID) -> GetDto | None:
         """Get User object by Id"""
         raise NotImplementedError
 
     @abstractmethod
-    def get_by_email(self, email: str) -> GetUserDto | None:
+    def get_by_email(self, email: str) -> GetDto | None:
         """Get User object by email"""
         raise NotImplementedError
 

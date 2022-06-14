@@ -34,7 +34,7 @@ class EditDto:
 
 
 @dataclass
-class GetUserDto:
+class GetDto:
     first_name: str
     last_name: str
     email: str
@@ -48,18 +48,26 @@ class GetUserDto:
 
 
 @dataclass
+class Login:
+    full_name: str
+    email: str
+    username: str
+    roles: List[str]
+
+
+@dataclass
 class CreateUserResponseModel(BaseResponse):
     user_id: uuid.UUID | None
 
 
 @dataclass
 class ListUserResponseModel(BaseResponse):
-    users: List[GetUserDto]
+    users: List[GetDto]
 
 
 @dataclass
 class GetUserResponseModel(BaseResponse):
-    user: GetUserDto | None
+    user: GetDto | None
 
 
 @dataclass
