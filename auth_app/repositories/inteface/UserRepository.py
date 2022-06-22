@@ -2,7 +2,7 @@ import uuid
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from auth_app.dto.UserDto import CreateDto, GetDto, EditDto
+from auth_app.dto.UserDto import CreateDto, GetDto, EditDto, Login
 from auth_app.models import User
 
 
@@ -37,4 +37,9 @@ class UserRepository(metaclass=ABCMeta):
     @abstractmethod
     def check_if_exist(self, email: str) -> bool:
         """Checks if user exists with email"""
+        raise NotImplementedError
+
+    @abstractmethod
+    def authenticate(self, username: str, password: str) -> Login:
+        """Authenticate user and return information if authenticated"""
         raise NotImplementedError

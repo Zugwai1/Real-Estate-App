@@ -141,9 +141,6 @@ LOGGING = {
         }
     },
     'filters': {
-        'special': {
-            '()': 'project.logging.SpecialFilter',
-        },
         'require_debug_true': {
             '()': 'django.utils.log.RequireDebugTrue',
         },
@@ -158,8 +155,8 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filters': ['special', 'require_debug_true'],
-            'filename': 'logs/logs.log',
+            'filters': ['require_debug_true'],
+            'filename': './logs.log',
             'formatter': 'verbose'
         },
     },
@@ -171,7 +168,7 @@ LOGGING = {
         'app': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
-            'filters': ['special']
+            'filters': ['require_debug_true']
         }
     }
 }

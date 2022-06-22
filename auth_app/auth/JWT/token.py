@@ -10,20 +10,19 @@ import jwt
 def get_token(payload: Login) -> str:
     try:
         exp = datetime.datetime.now() + datetime.timedelta(seconds=float(getenv("EXPIRY_TIME")))
-        nbf = exp + datetime.timedelta(seconds=float(getenv("NBF")))
+        nbf = datetime.datetime.now()
         iss = getenv("ISS")
         aud = getenv("AUD")
         iat = datetime.datetime.now()
         algorithm = getenv("ALGORITHM")
-        key = __get_key()
-        data = json.dumps(payload.__dict__)
+        key = getenv("SECRET_KEY")
+        data = payload.__dict__
         return jwt.encode(payload={
             "data": data,
             "exp": exp,
             "iss": iss,
             "aud": aud,
-            "iat": iat,
-            "nbf": nbf
+            "iat": iat
         }, algorithm=algorithm, key=key)
     except (OSError, Exception) as ex:
         logging.error(f"{ex} occurred while generating token")
@@ -33,22 +32,17 @@ def get_token(payload: Login) -> str:
 def decode(token: str) -> Login:
     try:
         audience = getenv("AUD")
-        secret = __get_key(False)
+        secret = getenv("SECRET_KEY")
         algorithm = getenv("ALGORITHM")
-        leeway = getenv("LEEWAY")
         data = jwt.decode(token, key=secret, audience=audience, options={
-            "require": ["exp", "iss", "aud", "iat"], "verify_signature": True,
-            "verify_aud": "verify_signature", "verify_exp": "verify_signature",
-            "verify_iss": "verify_signature", "verify_nbf": "verify_signature",
-            "verify_iat": "verify_signature",
-        }, algorithms=algorithm,
-                          leeway=datetime.timedelta(seconds=float(leeway)))
-        data = json.loads(data["data"])
+            "require": ["exp", "iss", "aud", "iat"], "verify_signature": True
+        }, algorithms=algorithm)
+        user_info = data["data"]
         user = Login(
-            full_name=f"{data['last_name']} {data['first_name']} {data['middle_name']}",
-            email=data["email"],
-            username=data["username"],
-            roles=data["roles"]
+            full_name=user_info["full_name"],
+            email=user_info["email"],
+            username=user_info["username"],
+            roles=user_info["roles"]
         )
         return user
     except OSError as error:

@@ -11,7 +11,7 @@ from auth_app.services.interface.UserService import UserService
 class DefaultUserService(UserService):
     repository: UserRepository
 
-    def __int__(self, repository: UserRepository):
+    def __init__(self, repository: UserRepository):
         self.repository = repository
 
     def create(self, user_dto: CreateDto) -> CreateUserResponseModel:
@@ -65,10 +65,22 @@ class DefaultUserService(UserService):
                     message=f"User with id: {id} not found" if id is not None else f"Usr with email: {email} not found",
                     user=None
                 )
-        except (ObjectDoesNotExist, MultipleObjectsReturned):
+        except ObjectDoesNotExist:
             return GetUserResponseModel(
                 status=False,
-                message="An error occurred while getting user ",
+                message=f"User with id: {id} not found" if id is not None else f"Usr with email: {email} not found",
+                user=None
+            )
+        except MultipleObjectsReturned:
+            return GetUserResponseModel(
+                status=False,
+                message=f"Multiple User with id: {id} found" if id is not None else f"Usr with email: {email} not found",
+                user=None
+            )
+        except (Exception, ) as ex:
+            return GetUserResponseModel(
+                status=False,
+                message=ex,
                 user=None
             )
 
@@ -86,4 +98,3 @@ class DefaultUserService(UserService):
                 status=False,
                 message="An error occurred"
             )
-
