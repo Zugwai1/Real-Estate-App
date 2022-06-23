@@ -24,3 +24,8 @@ class UserService(metaclass=ABCMeta):
     def edit(self, id: uuid.UUID, updated_user_dto: EditDto):
         """Edit user object"""
         raise NotImplementedError
+
+    @abstractmethod
+    def delete(self, id: uuid.UUID):
+        """Delete user object"""
+        raise NotImplementedError

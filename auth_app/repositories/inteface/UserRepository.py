@@ -43,3 +43,8 @@ class UserRepository(metaclass=ABCMeta):
     def authenticate(self, username: str, password: str) -> Login:
         """Authenticate user and return information if authenticated"""
         raise NotImplementedError
+
+    @abstractmethod
+    def delete(self, id: uuid.UUID):
+        """Delete User Object"""
+        raise NotImplementedError

@@ -1,7 +1,6 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-import json
 from auth_app.services.implementations.AuthService import authenticate
 from auth_app.viewmodels.LoginRequestModel import LoginRequestModel
 

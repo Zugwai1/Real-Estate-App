@@ -1,7 +1,6 @@
 import logging
 import uuid
 from typing import List
-
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
@@ -31,54 +30,55 @@ class DjangoORMUserRepository(UserRepository):
     def check_if_exist(self, email: str) -> bool:
         return User.objects.filter(email__exact=email).exists()
 
-    def create(self, user: CreateDto) -> uuid.UUID:
+    def create(self, user_dto: CreateDto) -> uuid.UUID:
         try:
-            groups = self.__get_or_create_group(user.groups)
-            user = User.objects.create(
-                id=uuid.uuid4(),
-                first_name=user.first_name,
-                last_name=user.last_name,
-                middle_name=user.middle_name,
-                email=user.email,
-                phone_number=user.phone_number,
-                nationality=user.nationality,
-                address_id=user.address_id,
-                username=user.username,
-                password=make_password(password=user.password),
-                DOB=user.DOB
-            )
-            user.groups.set(groups)
-            return user.id
+            groups = self.__get_or_create_group(user_dto.groups)
+            user = User()
+
+            # User Information
+            user.id = uuid.uuid4(),
+            user.first_name = user_dto.first_name,
+            user.last_name = user_dto.last_name,
+            user.middle_name = user_dto.middle_name,
+            user.email = user_dto.email,
+            user.phone_number = user_dto.phone_number,
+            user.nationality = user_dto.nationality,
+            user.username = user_dto.username,
+            user.password = make_password(password=user_dto.password),
+            user.DOB = user_dto.DOB
+
+            # add user Address
+            user.address.id = uuid.uuid4(),
+            user.address.country = user_dto.country,
+            user.address.state = user_dto.state,
+            user.address.city = user_dto.city,
+            user.address.postal_code = user_dto.postal_code,
+            user.address.number_line = user_dto.number_line,
+            user.address.street = user_dto.street
+
+            # add user Group
+            user.groups = groups
+            user.save()
+            return user.id[0]
         except (IntegrityError, Exception) as ex:
             logging.error(f"{ex} ,occurred while creating user")
             raise ex
 
     def list(self) -> List[GetDto]:
         result: List[GetDto] = []
-        users = list(User.objects.values(
-            "id",
-            "first_name",
-            "last_name",
-            "middle_name",
-            "email",
-            "username",
-            "DOB",
-            "nationality",
-            "phone_number",
-            "address"
-        ))
+        users = User.objects.all()
         for user in users:
             item = GetDto(
-                id=user["id"],
-                first_name=user["first_name"],
-                last_name=user["last_name"],
-                middle_name=user["middle_name"],
-                DOB=user["DOB"],
-                address=user["address"],
-                nationality=user["nationality"],
-                email=user["email"],
-                phone_number=user["phone_number"],
-                username=user["username"]
+                id=user.id,
+                username=user.username,
+                DOB=user.DOB,
+                first_name=user.first_name,
+                last_name=user.last_name,
+                middle_name=user.middle_name,
+                email=user.email,
+                nationality=user.nationality,
+                address=user.address,
+                phone_number=user.phone_number
             )
             result.append(item)
         return result
@@ -135,19 +135,28 @@ class DjangoORMUserRepository(UserRepository):
     def edit(self, id: uuid.UUID, updated_user: EditDto) -> uuid.UUID:
         try:
             user = User.objects.get(id=id)
-            user.username = updated_user.username,
             user.DOB = updated_user.DOB,
             user.first_name = updated_user.first_name,
             user.last_name = updated_user.last_name,
             user.middle_name = updated_user.middle_name,
             user.email = updated_user.email,
             user.nationality = updated_user.nationality,
-            user.address = updated_user.address,
+            user.address.street = updated_user.street,
+            user.address.city = updated_user.city,
+            user.address.number_line = updated_user.number_line,
+            user.address.state = updated_user.state,
             user.phone_number = updated_user.phone_number
             user.save()
             return user.id
         except (ObjectDoesNotExist, MultipleObjectsReturned, Exception) as ex:
-            logging.error(f"{ex} Occurred while creating user")
+            logging.error(f"{ex} Occurred while edit user")
+            raise ex
+
+    def delete(self, id: uuid.UUID):
+        try:
+            User.objects.get(id=id).delete()
+        except (ObjectDoesNotExist, MultipleObjectsReturned, Exception) as ex:
+            logging.error(f"{ex} Occurred while deleting user")
             raise ex
 
     @staticmethod

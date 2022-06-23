@@ -16,8 +16,13 @@ class CreateDto:
     nationality: str
     DOB: date
     middle_name: str
-    address_id: uuid.UUID
     username: str
+    number_line: int
+    street: str
+    city: str
+    state: str
+    country: str
+    postal_code: int
     groups: List[str]
 
 
@@ -30,8 +35,12 @@ class EditDto:
     nationality: str
     DOB: date
     middle_name: str
-    address: object
-    username: str
+    number_line: int
+    street: str
+    city: str
+    state: str
+    country: str
+    postal_code: int
 
 
 @dataclass
@@ -65,6 +74,11 @@ class CreateUserResponseModel(BaseResponse):
 @dataclass
 class ListUserResponseModel(BaseResponse):
     users: List[GetDto]
+
+
+@dataclass
+class DeleteUserResponseModel(BaseResponse):
+    ...
 
 
 @dataclass
@@ -112,3 +126,20 @@ class CreateUserRequestModel:
     country: str
     postal_code: int
     groups: List[str]
+
+
+@dataclass
+class EditUserRequestModel:
+    first_name: str
+    last_name: str
+    email: str
+    phone_number: str
+    nationality: str
+    DOB: date
+    middle_name: str
+    number_line: int
+    street: str
+    city: str
+    state: str
+    country: str
+    postal_code: int

@@ -2,9 +2,8 @@ from rest_framework import serializers
 
 
 class AppBaseSerializer(serializers.Serializer):
-    id = serializers.UUIDField(read_only=True)
-    date_created = serializers.DateTimeField(read_only=True)
-    date_modified = serializers.DateTimeField(read_only=True)
+    message = serializers.CharField(max_length=5000, required=False)
+    status = serializers.BooleanField(required=False)
 
     def update(self, instance, validated_data):
         pass

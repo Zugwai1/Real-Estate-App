@@ -3,7 +3,7 @@ import uuid
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db import IntegrityError
 from auth_app.dto.UserDto import EditDto, GetUserResponseModel, ListUserResponseModel, CreateDto, \
-    CreateUserResponseModel, EditUserResponseModel
+    CreateUserResponseModel, EditUserResponseModel, DeleteUserResponseModel
 from auth_app.repositories.inteface.UserRepository import UserRepository
 from auth_app.services.interface.UserService import UserService
 
@@ -77,7 +77,7 @@ class DefaultUserService(UserService):
                 message=f"Multiple User with id: {id} found" if id is not None else f"Usr with email: {email} not found",
                 user=None
             )
-        except (Exception, ) as ex:
+        except (Exception,) as ex:
             return GetUserResponseModel(
                 status=False,
                 message=ex,
@@ -97,4 +97,17 @@ class DefaultUserService(UserService):
                 user_id=None,
                 status=False,
                 message="An error occurred"
+            )
+
+    def delete(self, id: uuid.UUID):
+        try:
+            self.repository.delete(id)
+            return DeleteUserResponseModel(
+                message="Use Object Successfully Delete",
+                status=True
+            )
+        except (ObjectDoesNotExist, MultipleObjectsReturned):
+            return DeleteUserResponseModel(
+                message="An error occurred",
+                status=False
             )
