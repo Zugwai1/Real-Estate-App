@@ -86,7 +86,7 @@ class DjangoORMUserRepository(UserRepository):
     def get_by_id(self, id: uuid.UUID) -> GetDto | None:
         try:
             result = User.objects.filter(id=id).get()
-            address = AddressDto.GetDto(
+            address = address_dto.GetDto(
                 id=result.address.id,
                 number_line=result.address.number_line,
                 street=result.address.street,

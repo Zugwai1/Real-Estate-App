@@ -1,19 +1,17 @@
 import logging
 import uuid
+from multiprocessing import Process
 from typing import List
+
+from django.db.models import Q
+from auth_app.dto import user_dto
 from accommodation_support.dto.PropertyDto import ListDto, EditDto, CreateDto, GetDto
 from accommodation_support.models import Property, Image
 from accommodation_support.repositories.interface.property_repository import PropertyRepository
-from auth_app.repositories.inteface.UserRepository import UserRepository
 from auth_app.models import Address
 
 
 class DjangoPropertyRepository(PropertyRepository):
-    user_repository: UserRepository
-
-    def __init__(self, user_repository):
-        self.user_repository = user_repository
-
     def create(self, model: CreateDto) -> uuid.UUID:
         try:
             property = Property()
@@ -51,7 +49,7 @@ class DjangoPropertyRepository(PropertyRepository):
 
     def list(self) -> List[ListDto]:
         objects: List[ListDto] = []
-        properties = Property.objects.all()
+        properties = Property.objects.select_related("address", "user").get()
         for property in properties:
             item = ListDto(
                 id=property.id,
@@ -63,8 +61,19 @@ class DjangoPropertyRepository(PropertyRepository):
                 type=property.type,
                 postal_code=property.address.postal_code,
                 name=property.name,
-                images=property.image_set.all(),
-                user=self.user_repository.get_by_id(id=property.user_id)
+                images=property.image_set.only("image").all(),
+                user=user_dto.GetDto(
+                    id=property.user.id,
+                    username=property.user.username,
+                    DOB=property.user.DOB,
+                    first_name=property.user.first_name,
+                    last_name=property.user.last_name,
+                    middle_name=property.user.middle_name,
+                    email=property.user.email,
+                    nationality=property.user.nationality,
+                    address=property.user.address,
+                    phone_number=property.user.phone_number
+                )
             )
             objects.append(item)
         return objects
@@ -83,13 +92,57 @@ class DjangoPropertyRepository(PropertyRepository):
                 postal_code=property.address.postal_code,
                 name=property.name,
                 images=property.image_set.all(),
-                user=self.user_repository.get_by_id(id=property.user_id),
-                description=property.description
+                description=property.description,
+                user=user_dto.GetDto(
+                    id=property.user.id,
+                    username=property.user.username,
+                    DOB=property.user.DOB,
+                    first_name=property.user.first_name,
+                    last_name=property.user.last_name,
+                    middle_name=property.user.middle_name,
+                    email=property.user.email,
+                    nationality=property.user.nationality,
+                    address=property.user.address,
+                    phone_number=property.user.phone_number
+                )
             )
             return result
         except (Exception,) as ex:
             logging.error(f"{ex} ,occurred while getting property")
             raise ex
+
+    def search(self, filter: str):
+        properties = Property.objects.select_related("user", "address").filter(
+            Q(name__search=filter) | Q(description__contains=filter) | Q(type__search=filter)
+        )
+        objects: List[ListDto] = []
+        for property in properties:
+            item = ListDto(
+                id=property.id,
+                city=property.address.city,
+                street=property.address.street,
+                state=property.address.state,
+                country=property.address.country,
+                number_line=property.address.number_line,
+                type=property.type,
+                postal_code=property.address.postal_code,
+                name=property.name,
+                images=property.image_set.only("image").all(),
+                user=user_dto.GetDto(
+                    id=property.user.id,
+                    username=property.user.username,
+                    DOB=property.user.DOB,
+                    first_name=property.user.first_name,
+                    last_name=property.user.last_name,
+                    middle_name=property.user.middle_name,
+                    email=property.user.email,
+                    nationality=property.user.nationality,
+                    address=property.user.address,
+                    phone_number=property.user.phone_number
+                )
+            )
+            objects.append(item)
+        return objects
 
     @staticmethod
     def __create_images(property_id: uuid.UUID, images: List[str]):

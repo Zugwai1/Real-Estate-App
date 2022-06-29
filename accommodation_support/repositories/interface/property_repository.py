@@ -10,6 +10,10 @@ class PropertyRepository(metaclass=ABCMeta):
         """Create a property Object"""
         raise NotImplementedError
 
+    def search(self, filter: str):
+        """Search property object"""
+        raise NotImplementedError
+
     @abstractmethod
     def edit(self, id: uuid.UUID, model: EditDto) -> uuid.UUID:
         """Edit a property object"""
