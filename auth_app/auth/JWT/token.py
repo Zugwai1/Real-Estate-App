@@ -3,7 +3,7 @@ import json
 import logging
 from os import getenv
 from cryptography.hazmat.primitives import serialization
-from auth_app.dto.UserDto import Login
+from auth_app.dto.user_dto import Login
 import jwt
 
 

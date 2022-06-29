@@ -1,7 +1,7 @@
 import uuid
 from abc import ABCMeta, abstractmethod
 from typing import List
-from auth_app.dto.AddressDto import GetDto, EditDto, CreateDto, ListDto
+from auth_app.dto.address_dto import GetDto, EditDto, CreateDto, ListDto
 
 
 class AddressRepository(metaclass=ABCMeta):

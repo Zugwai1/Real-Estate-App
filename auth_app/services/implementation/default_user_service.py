@@ -2,10 +2,10 @@ import logging
 import uuid
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db import IntegrityError
-from auth_app.dto.UserDto import EditDto, GetUserResponseModel, ListUserResponseModel, CreateDto, \
+from auth_app.dto.user_dto import EditDto, GetUserResponseModel, ListUserResponseModel, CreateDto, \
     CreateUserResponseModel, EditUserResponseModel, DeleteUserResponseModel
-from auth_app.repositories.inteface.UserRepository import UserRepository
-from auth_app.services.interface.UserService import UserService
+from auth_app.repositories.inteface.user_repository import UserRepository
+from auth_app.services.interface.user_service import UserService
 
 
 class DefaultUserService(UserService):

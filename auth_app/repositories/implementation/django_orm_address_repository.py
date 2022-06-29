@@ -4,8 +4,8 @@ from typing import List
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db import IntegrityError
 from auth_app.models import Address
-from auth_app.repositories.inteface.AddressRepository import AddressRepository
-from auth_app.dto.AddressDto import GetDto, EditDto, CreateDto, ListDto
+from auth_app.repositories.inteface.address_repository import AddressRepository
+from auth_app.dto.address_dto import GetDto, EditDto, CreateDto, ListDto
 
 
 class DjangoORMAddressRepository(AddressRepository):

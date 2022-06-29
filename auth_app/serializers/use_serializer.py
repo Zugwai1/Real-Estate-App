@@ -1,7 +1,7 @@
 from NewToUk.shared.models.BaseSerializer import AppBaseSerializer
 from rest_framework import serializers
 
-from auth_app.serializers.AddressSerializer import AddressSerializer
+from auth_app.serializers.address_serializer import AddressSerializer
 
 
 class UserSerializer(serializers.Serializer):

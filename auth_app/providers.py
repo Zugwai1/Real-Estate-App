@@ -1,13 +1,13 @@
 from typing import Callable
 from dependency_injector import containers, providers
-from auth_app.repositories.implementations.DjangoORMAddressRepository import DjangoORMAddressRepository
-from auth_app.repositories.implementations.DjangoORMUserRepository import DjangoORMUserRepository
-from auth_app.repositories.inteface.AddressRepository import AddressRepository
-from auth_app.repositories.inteface.UserRepository import UserRepository
-from auth_app.services.implementations.DefaultAddressService import DefaultAddressService
-from auth_app.services.implementations.DefaultUserService import DefaultUserService
-from auth_app.services.interface.AddressService import AddressService
-from auth_app.services.interface.UserService import UserService
+from auth_app.repositories.implementation.django_orm_address_repository import DjangoORMAddressRepository
+from auth_app.repositories.implementation.django_orm_user_repository import DjangoORMUserRepository
+from auth_app.repositories.inteface.address_repository import AddressRepository
+from auth_app.repositories.inteface.user_repository import UserRepository
+from auth_app.services.implementation.default_address_service import DefaultAddressService
+from auth_app.services.implementation.default_user_service import DefaultUserService
+from auth_app.services.interface.address_service import AddressService
+from auth_app.services.interface.user_service import UserService
 
 
 class Container(containers.DeclarativeContainer):

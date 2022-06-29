@@ -5,10 +5,10 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db import *
-from auth_app.dto import AddressDto
-from auth_app.dto.UserDto import CreateDto, GetDto, EditDto, Login
+from auth_app.dto import address_dto
+from auth_app.dto.user_dto import CreateDto, GetDto, EditDto, Login
 from auth_app.models import User
-from auth_app.repositories.inteface.UserRepository import UserRepository
+from auth_app.repositories.inteface.user_repository import UserRepository
 
 
 class DjangoORMUserRepository(UserRepository):

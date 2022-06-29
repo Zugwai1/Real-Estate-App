@@ -1,12 +1,13 @@
+import datetime
 from uuid import UUID
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from NewToUk.shared.models.BaseResponse import BaseResponse
-from auth_app.dto.UserDto import EditUserRequestModel, EditDto
+from auth_app.dto.user_dto import EditUserRequestModel, EditDto
 from auth_app.providers import auth_providers
-from auth_app.views.decorators import is_authenticated, authorize
-from auth_app.serializers.UseSerializer import GetUserSerializer
+from auth_app.views.view_decorators import is_authenticated, authorize
+from auth_app.serializers.use_serializer import GetUserSerializer
 
 
 class UserDetailsView(APIView):
@@ -59,7 +60,7 @@ class UserDetailsView(APIView):
                 phone_number=request.data["phone_number"],
                 nationality=request.data["nationality"],
                 middle_name=request.data["middle_name"],
-                DOB=request.data["dob"],
+                DOB=datetime.datetime.strptime(request.data["dob"], "%Y-%m-%d"),
                 country=request.data["country"],
                 city=request.data["city"],
                 postal_code=request.data["postal_code"],

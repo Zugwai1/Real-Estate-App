@@ -3,10 +3,10 @@ import uuid
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db import IntegrityError
 
-from auth_app.dto.AddressDto import GetAddressResponseModel, EditDto, EditAddressResponseModel, \
+from auth_app.dto.address_dto import GetAddressResponseModel, EditDto, EditAddressResponseModel, \
     ListAddressResponseModel, CreateDto, CreateAddressResponseModel
-from auth_app.repositories.inteface.AddressRepository import AddressRepository
-from auth_app.services.interface.AddressService import AddressService
+from auth_app.repositories.inteface.address_repository import AddressRepository
+from auth_app.services.interface.address_service import AddressService
 
 
 class DefaultAddressService(AddressService):

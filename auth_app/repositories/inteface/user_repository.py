@@ -2,7 +2,7 @@ import uuid
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from auth_app.dto.UserDto import CreateDto, GetDto, EditDto, Login
+from auth_app.dto.user_dto import CreateDto, GetDto, EditDto, Login
 from auth_app.models import User
 
 

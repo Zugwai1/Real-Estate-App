@@ -3,11 +3,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from NewToUk.shared.models.BaseResponse import BaseResponse
 from NewToUk.shared.models.BaseSerializer import AppBaseSerializer
-from auth_app.dto.UserDto import CreateUserRequestModel
+from auth_app.dto.user_dto import CreateUserRequestModel
 from auth_app.providers import auth_providers
-from auth_app.dto import UserDto
-from auth_app.views.decorators import is_authenticated, authorize
-from auth_app.serializers.UseSerializer import ListUserSerializer
+from auth_app.dto import user_dto
+from auth_app.views.view_decorators import is_authenticated, authorize
+from auth_app.serializers.use_serializer import ListUserSerializer
 
 
 class UserView(APIView):

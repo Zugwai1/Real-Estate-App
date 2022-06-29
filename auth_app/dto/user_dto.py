@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import date
 from typing import List
 import uuid
-from auth_app.dto import AddressDto
+from auth_app.dto import address_dto
 from NewToUk.shared.models.BaseResponse import BaseResponse
 
 
@@ -52,7 +52,7 @@ class GetDto:
     nationality: str
     DOB: date
     middle_name: str
-    address: AddressDto.GetDto
+    address: address_dto.GetDto
     username: str
     id: uuid.UUID
 

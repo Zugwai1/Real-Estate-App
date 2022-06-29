@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from auth_app.dto.UserDto import *
+from auth_app.dto.user_dto import *
 
 
 class UserService(metaclass=ABCMeta):

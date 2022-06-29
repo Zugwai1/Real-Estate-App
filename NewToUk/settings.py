@@ -13,11 +13,12 @@ import os
 from os.path import join, dirname
 from pathlib import Path
 from dotenv import load_dotenv
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 load_dotenv(join(dirname(__file__), '.env'))
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+logger = logging.getLogger(__name__)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
