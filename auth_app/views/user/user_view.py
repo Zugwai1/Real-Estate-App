@@ -25,7 +25,7 @@ class UserView(APIView):
         if isinstance(model, BaseResponse):
             return Response(data=AppBaseSerializer(model).data,
                             status=status.HTTP_400_BAD_REQUEST)
-        user_dto = UserDto.CreateDto(
+        user_dto = user_dto.CreateDto(
             username=model.username,
             email=model.email,
             first_name=model.first_name,
