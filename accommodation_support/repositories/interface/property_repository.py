@@ -1,7 +1,7 @@
 import uuid
 from abc import abstractmethod, ABCMeta
 from typing import List
-from accommodation_support.dto.PropertyDto import CreateDto, EditDto, ListDto, GetDto
+from accommodation_support.dto.property_dto import CreateDto, EditDto, ListDto, GetDto
 
 
 class PropertyRepository(metaclass=ABCMeta):
@@ -10,7 +10,7 @@ class PropertyRepository(metaclass=ABCMeta):
         """Create a property Object"""
         raise NotImplementedError
 
-    def search(self, filter: str):
+    def search(self, filter: str) -> List[ListDto]:
         """Search property object"""
         raise NotImplementedError
 

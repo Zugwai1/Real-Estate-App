@@ -1,11 +1,10 @@
 import logging
 import uuid
-from multiprocessing import Process
 from typing import List
 
 from django.db.models import Q
 from auth_app.dto import user_dto
-from accommodation_support.dto.PropertyDto import ListDto, EditDto, CreateDto, GetDto
+from accommodation_support.dto.property_dto import ListDto, EditDto, CreateDto, GetDto
 from accommodation_support.models import Property, Image
 from accommodation_support.repositories.interface.property_repository import PropertyRepository
 from auth_app.models import Address
@@ -43,7 +42,7 @@ class DjangoPropertyRepository(PropertyRepository):
             self.__update_images(property.objects.all(), model.images)
             property.objects.update()
             return property.id
-        except (Exception,) as ex:
+        except (Exception, Property.DoesNotExist, Property.MultipleObjectsReturned) as ex:
             logging.error(f"{ex} ,occurred while updating property")
             raise ex
 
@@ -107,11 +106,11 @@ class DjangoPropertyRepository(PropertyRepository):
                 )
             )
             return result
-        except (Exception,) as ex:
+        except (Exception, Property.DoesNotExist, Property.MultipleObjectsReturned) as ex:
             logging.error(f"{ex} ,occurred while getting property")
             raise ex
 
-    def search(self, filter: str):
+    def search(self, filter: str) -> List[ListDto]:
         properties = Property.objects.select_related("user", "address").filter(
             Q(name__search=filter) | Q(description__contains=filter) | Q(type__search=filter)
         )
@@ -154,7 +153,7 @@ class DjangoPropertyRepository(PropertyRepository):
                 item.image = image
                 objects.append(item)
             Image.objects.bulk_create(objects)
-        except (Exception,) as ex:
+        except(Exception, Image.DoesNotExist, Image.MultipleObjectsReturned) as ex:
             logging.error(f"{ex} ,occurred while creating images")
             raise ex
 
@@ -166,6 +165,6 @@ class DjangoPropertyRepository(PropertyRepository):
                 images[position].image = updated_images[0]
                 position += 1
             Image.objects.bulk_update(images)
-        except (Exception,) as ex:
+        except (Exception, Image.DoesNotExist, Image.MultipleObjectsReturned) as ex:
             logging.error(f"{ex} ,occurred while updating images")
             raise ex

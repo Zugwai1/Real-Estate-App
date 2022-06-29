@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from uuid import UUID
 
+from NewToUk.shared.models.BaseResponse import BaseResponse
 from auth_app.dto import user_dto
 
 
@@ -39,7 +40,7 @@ class ListDto:
     id: UUID
     name: str
     type: str
-    user: UserDto.GetDto
+    user: user_dto.GetDto
     number_line: int
     street: str
     city: str
@@ -55,7 +56,7 @@ class GetDto:
     name: str
     type: str
     description: str
-    user: UserDto.GetDto
+    user: user_dto.GetDto
     number_line: int
     street: str
     city: str
@@ -63,3 +64,25 @@ class GetDto:
     country: str
     postal_code: int
     images: List[str]
+
+
+# response models
+
+@dataclass
+class CreatePropertyResponseModel(BaseResponse):
+    property_id: UUID | None
+
+
+@dataclass
+class ListPropertyResponseModel(BaseResponse):
+    properties: List[ListDto]
+
+
+@dataclass
+class GetPropertyResponseModel(BaseResponse):
+    property: GetDto | None
+
+
+@dataclass
+class EditPropertyResponseModel(BaseResponse):
+    property_id: UUID | None
