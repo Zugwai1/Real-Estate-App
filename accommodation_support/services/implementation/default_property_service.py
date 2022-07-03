@@ -2,7 +2,7 @@ import uuid
 
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 
-from NewToUk.shared.models.BaseResponse import BaseResponse
+from NewToUk.shared.models.base_response import BaseResponse
 from accommodation_support.dto.property_dto import EditDto, CreateDto, CreatePropertyResponseModel, \
     GetPropertyResponseModel, ListPropertyResponseModel, EditPropertyResponseModel
 from accommodation_support.repositories.interface.property_repository import PropertyRepository
@@ -15,7 +15,7 @@ class DefaultPropertyService(PropertyService):
     def __init__(self, repository):
         self.repository = repository
 
-    def create(self, model: CreateDto) -> CreatePropertyResponseModel | BaseResponse:
+    def create(self, model: CreateDto) -> BaseResponse:
         try:
             result = self.repository.create(model)
             if result:
@@ -36,7 +36,7 @@ class DefaultPropertyService(PropertyService):
                 message="An error occurred while creating property",
             )
 
-    def search(self, filter: str) -> ListPropertyResponseModel | BaseResponse:
+    def search(self, filter: str) -> BaseResponse:
         try:
             result = self.repository.search(filter)
             if result:
@@ -57,7 +57,7 @@ class DefaultPropertyService(PropertyService):
                 message="An error occurred",
             )
 
-    def edit(self, id: uuid.UUID, model: EditDto) -> EditPropertyResponseModel | BaseResponse:
+    def edit(self, id: uuid.UUID, model: EditDto) -> BaseResponse:
         try:
             result = self.repository.edit(id, model)
             if result:
@@ -78,7 +78,7 @@ class DefaultPropertyService(PropertyService):
                 message="An error occurred",
             )
 
-    def list(self) -> ListPropertyResponseModel | BaseResponse:
+    def list(self) -> BaseResponse:
         try:
             result = self.repository.list()
             if result:
@@ -99,7 +99,7 @@ class DefaultPropertyService(PropertyService):
                 message="An error occurred",
             )
 
-    def get(self, id: uuid.UUID) -> GetPropertyResponseModel | BaseResponse:
+    def get(self, id: uuid.UUID) -> BaseResponse:
         try:
             result = self.repository.get(id)
             if result:

@@ -3,7 +3,7 @@ from uuid import UUID
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from NewToUk.shared.models.BaseResponse import BaseResponse
+from NewToUk.shared.models.base_response import BaseResponse
 from auth_app.dto.user_dto import EditUserRequestModel, EditDto
 from auth_app.providers import auth_providers
 from auth_app.views.view_decorators import is_authenticated, authorize

@@ -1,5 +1,5 @@
 from django.db import models
-from NewToUk.shared.models.BaseModel import BaseModel
+from NewToUk.shared.models.base_model import BaseModel
 from auth_app.models import User, Address
 
 

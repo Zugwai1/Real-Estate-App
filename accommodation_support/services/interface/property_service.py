@@ -2,7 +2,7 @@ import uuid
 from abc import abstractmethod, ABCMeta
 from typing import List
 
-from NewToUk.shared.models.BaseResponse import BaseResponse
+from NewToUk.shared.models.base_response import BaseResponse
 from accommodation_support.dto.property_dto import CreateDto, EditDto, CreatePropertyResponseModel, \
     GetPropertyResponseModel, EditPropertyResponseModel, ListPropertyResponseModel
 

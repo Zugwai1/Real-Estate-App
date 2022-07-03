@@ -7,7 +7,7 @@ from auth_app.dto.user_dto import Login
 import jwt
 
 
-def get_token(payload: Login) -> str:
+def generate_token(payload: Login) -> str:
     try:
         exp = datetime.datetime.now() + datetime.timedelta(seconds=float(getenv("EXPIRY_TIME")))
         nbf = datetime.datetime.now()
@@ -29,8 +29,10 @@ def get_token(payload: Login) -> str:
         raise ex
 
 
-def decode(token: str) -> Login:
+def decode(token: str = None, request = None) -> Login:
     try:
+        if not token:
+            token = get_token(request)
         audience = getenv("AUD")
         secret = getenv("SECRET_KEY")
         algorithm = getenv("ALGORITHM")
@@ -39,6 +41,7 @@ def decode(token: str) -> Login:
         }, algorithms=algorithm)
         user_info = data["data"]
         user = Login(
+            id=user_info["id"],
             full_name=user_info["full_name"],
             email=user_info["email"],
             username=user_info["username"],
@@ -50,6 +53,14 @@ def decode(token: str) -> Login:
     except jwt.exceptions.DecodeError as ex:
         logging.error(f"{ex} occurred while generating token")
         raise ex
+
+
+def get_token(request):
+    token: str = request.headers.get("Authorization", "")
+    if token != "":
+        token = token.split(" ")[-1]
+        return token
+    return None
 
 
 def __get_key(is_private: bool = True):

@@ -1,4 +1,4 @@
-from NewToUk.shared.models.BaseSerializer import AppBaseSerializer
+from NewToUk.shared.models.base_serializer import AppBaseSerializer
 from rest_framework import serializers
 
 from auth_app.serializers.address_serializer import AddressSerializer

@@ -1,11 +1,11 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from NewToUk.shared.models.BaseResponse import BaseResponse
-from NewToUk.shared.models.BaseSerializer import AppBaseSerializer
+from NewToUk.shared.models.base_response import BaseResponse
+from NewToUk.shared.models.base_serializer import AppBaseSerializer
 from auth_app.dto.user_dto import CreateUserRequestModel
 from auth_app.providers import auth_providers
-from auth_app.dto import user_dto
+from auth_app.dto.user_dto import CreateDto
 from auth_app.views.view_decorators import is_authenticated, authorize
 from auth_app.serializers.use_serializer import ListUserSerializer
 
@@ -25,7 +25,7 @@ class UserView(APIView):
         if isinstance(model, BaseResponse):
             return Response(data=AppBaseSerializer(model).data,
                             status=status.HTTP_400_BAD_REQUEST)
-        user_dto = user_dto.CreateDto(
+        user_dto = CreateDto(
             username=model.username,
             email=model.email,
             first_name=model.first_name,

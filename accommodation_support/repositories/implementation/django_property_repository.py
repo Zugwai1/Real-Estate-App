@@ -112,7 +112,7 @@ class DjangoPropertyRepository(PropertyRepository):
 
     def search(self, filter: str) -> List[ListDto]:
         properties = Property.objects.select_related("user", "address").filter(
-            Q(name__search=filter) | Q(description__contains=filter) | Q(type__search=filter)
+            Q(name__search=filter) | Q(description__contains=filter) | Q(type__search=filter) | Q(user_id=filter)
         )
         objects: List[ListDto] = []
         for property in properties:

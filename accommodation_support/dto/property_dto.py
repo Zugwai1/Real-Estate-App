@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from uuid import UUID
 
-from NewToUk.shared.models.BaseResponse import BaseResponse
+from NewToUk.shared.models.base_response import BaseResponse
 from auth_app.dto import user_dto
 
 
@@ -86,3 +86,18 @@ class GetPropertyResponseModel(BaseResponse):
 @dataclass
 class EditPropertyResponseModel(BaseResponse):
     property_id: UUID | None
+
+
+# request model
+@dataclass
+class CreatePropertyRequestModel:
+    name: str
+    type: str
+    description: str
+    number_line: int
+    street: str
+    city: str
+    state: str
+    country: str
+    postal_code: int
+    images: List[str]

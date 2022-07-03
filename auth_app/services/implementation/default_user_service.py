@@ -2,6 +2,8 @@ import logging
 import uuid
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db import IntegrityError
+
+from NewToUk.shared.models.base_response import BaseResponse
 from auth_app.dto.user_dto import EditDto, GetUserResponseModel, ListUserResponseModel, CreateDto, \
     CreateUserResponseModel, EditUserResponseModel, DeleteUserResponseModel
 from auth_app.repositories.inteface.user_repository import UserRepository
@@ -14,7 +16,7 @@ class DefaultUserService(UserService):
     def __init__(self, repository: UserRepository):
         self.repository = repository
 
-    def create(self, user_dto: CreateDto) -> CreateUserResponseModel:
+    def create(self, user_dto: CreateDto) -> BaseResponse:
         try:
             exists = self.repository.check_if_exist(email=user_dto.email)
             if not exists:
@@ -38,7 +40,7 @@ class DefaultUserService(UserService):
                 message="An error occurred"
             )
 
-    def list(self) -> ListUserResponseModel:
+    def list(self) -> BaseResponse:
         users = self.repository.list()
         return ListUserResponseModel(
             users=users,
@@ -46,7 +48,7 @@ class DefaultUserService(UserService):
             message="Successful"
         )
 
-    def get(self, id: uuid.UUID = None, email: str = None) -> GetUserResponseModel:
+    def get(self, id: uuid.UUID = None, email: str = None) -> BaseResponse:
         try:
             user = None
             if id is not None:

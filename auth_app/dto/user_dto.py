@@ -3,7 +3,7 @@ from datetime import date
 from typing import List
 import uuid
 from auth_app.dto import address_dto
-from NewToUk.shared.models.BaseResponse import BaseResponse
+from NewToUk.shared.models.base_response import BaseResponse
 
 
 @dataclass
@@ -59,6 +59,7 @@ class GetDto:
 
 @dataclass
 class Login:
+    id: uuid.UUID
     full_name: str
     email: str
     username: str

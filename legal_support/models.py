@@ -1,6 +1,6 @@
 from django.db import models
 from auth_app.models import User
-from NewToUk.shared.models.BaseModel import BaseModel
+from NewToUk.shared.models.base_model import BaseModel
 
 
 # Create your models here.

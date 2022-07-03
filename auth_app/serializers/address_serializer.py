@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from NewToUk.shared.models.BaseSerializer import AppBaseSerializer
+from NewToUk.shared.models.base_serializer import AppBaseSerializer
 
 
 class AddressSerializer(AppBaseSerializer):

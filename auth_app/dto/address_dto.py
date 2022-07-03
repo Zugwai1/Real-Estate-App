@@ -1,7 +1,7 @@
 import uuid
 from dataclasses import dataclass
 from typing import List
-from NewToUk.shared.models.BaseResponse import BaseResponse
+from NewToUk.shared.models.base_response import BaseResponse
 
 
 @dataclass

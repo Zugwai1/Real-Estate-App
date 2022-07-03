@@ -3,14 +3,14 @@ import logging
 from jwt import *
 from rest_framework import status
 from rest_framework.response import Response
-from NewToUk.shared.models.BaseResponse import BaseResponse
-from auth_app.auth.JWT.token import decode
+from NewToUk.shared.models.base_response import BaseResponse
+from auth_app.auth.JWT.token import decode, get_token
 
 
 def is_authenticated(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        token: str = __get_token(args[1])
+        token: str = get_token(args[1])
         if token is None or token == "":
             return Response(BaseResponse(
                 status=False,
@@ -36,7 +36,7 @@ def authorize(roles: list):
     def wrapper_func(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            token: str = __get_token(args[1])
+            token: str = get_token(args[1])
             if token is None or token == "":
                 return Response(BaseResponse(
                     status=False,
@@ -67,9 +67,4 @@ def authorize(roles: list):
     return wrapper_func
 
 
-def __get_token(request):
-    token: str = request.headers.get("Authorization", "")
-    if token != "":
-        token = token.split(" ")[-1]
-        return token
-    return None
+

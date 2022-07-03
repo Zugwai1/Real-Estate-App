@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from NewToUk.shared.models.BaseModel import BaseModel
+from NewToUk.shared.models.base_model import BaseModel
 
 # Create your models here.
 
