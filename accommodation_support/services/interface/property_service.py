@@ -31,3 +31,8 @@ class PropertyService(metaclass=ABCMeta):
     def get(self, id: uuid.UUID) -> GetPropertyResponseModel:
         """Get property object"""
         raise NotImplementedError
+
+    @abstractmethod
+    def delete(self, id: uuid.UUID) -> BaseResponse:
+        """Delete Property Object"""
+        raise NotImplementedError

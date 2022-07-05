@@ -95,7 +95,7 @@ class DefaultPropertyService(PropertyService):
                 )
         except (Exception,):
             return BaseResponse(
-                status=True,
+                status=False,
                 message="An error occurred",
             )
 
@@ -110,12 +110,26 @@ class DefaultPropertyService(PropertyService):
                 )
             else:
                 return GetPropertyResponseModel(
-                    status=True,
+                    status=False,
                     message="Unsuccessful",
                     property=None
                 )
         except (Exception,):
             return BaseResponse(
-                status=True,
+                status=False,
+                message="An error occurred",
+            )
+
+    def delete(self, id: uuid.UUID) -> BaseResponse:
+        try:
+            result = self.repository.delete(id)
+            if result:
+                return BaseResponse(
+                    status=True,
+                    message="Successful",
+                )
+        except (Exception,):
+            return BaseResponse(
+                status=False,
                 message="An error occurred",
             )

@@ -100,4 +100,4 @@ class CreatePropertyRequestModel:
     state: str
     country: str
     postal_code: int
-    images: List[str]
+    images: List[str] | None

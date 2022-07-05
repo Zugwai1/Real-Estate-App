@@ -143,6 +143,13 @@ class DjangoPropertyRepository(PropertyRepository):
             objects.append(item)
         return objects
 
+    def delete(self, id: uuid.UUID) -> bool:
+        try:
+            Property.objects.get(id=id).delete()
+            return True
+        except (Property.MultipleObjectsReturned, Property.DoesNotExist, Exception) as ex:
+            raise ex
+
     @staticmethod
     def __create_images(property_id: uuid.UUID, images: List[str]):
         try:

@@ -1,20 +1,19 @@
-from typing import List
-
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from NewToUk.shared import BaseResponse
-from NewToUk.shared import AppBaseSerializer
+from NewToUk.shared.models.base_response import BaseResponse
+from NewToUk.shared.models.base_serializer import AppBaseSerializer
 from accommodation_support.providers import accommodation_app_provider
 from accommodation_support.serializers.property_serializer import ListPropertySerializer
 from auth_app.views.view_decorators import is_authenticated, authorize
-from accommodation_support.dto.property_dto import CreatePropertyRequestModel, CreateDto, CreatePropertyResponseModel
-from NewToUk.shared.Utilies import FileStorage
+from accommodation_support.dto.property_dto import CreatePropertyRequestModel, CreateDto
+from NewToUk.shared.Utilies.file_storage import FileStorage
 from auth_app.auth.JWT.token import decode
 
 
 class PropertyView(APIView):
+    file_storage = FileStorage()
+
     def get(self, request):
         response = accommodation_app_provider.property_service().list()
         if isinstance(response, BaseResponse):
@@ -31,9 +30,7 @@ class PropertyView(APIView):
     @authorize(["PropertyOwner"])
     def post(self, request):
         request_data, = self.__set_attributes(request),
-        if isinstance(request_data, BaseResponse):
-            data = AppBaseSerializer(request_data).data
-            return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
+        request_data.images = list(map(FileStorage().save, self.file_storage.get_files(request)))
         response = accommodation_app_provider.property_service().create(model=CreateDto(
             description=request_data.description,
             postal_code=request_data.postal_code,
@@ -51,7 +48,8 @@ class PropertyView(APIView):
             return Response(data=response.__dict__, status=status.HTTP_200_OK)
         return Response(data=response.__dict__, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def __set_attributes(self, request):
+    @staticmethod
+    def __set_attributes(request):
         try:
             property_request_model = CreatePropertyRequestModel(
                 description=request.data["description"],
@@ -63,7 +61,7 @@ class PropertyView(APIView):
                 number_line=request.data["number_line"],
                 name=request.data["name"],
                 type=request.data["type"],
-                images=list(map(FileStorage().save, self.__get_files(request)))
+                images=None
             )
             return property_request_model
         except KeyError as ex:
@@ -71,15 +69,3 @@ class PropertyView(APIView):
                 status=False,
                 message=f"fill data for {ex}"
             )
-
-    def __get_files(self, request) -> List:
-        stop: bool = False
-        count: int = 1
-        files: List = []
-        while not stop:
-            try:
-                file = request.data[f"image{count}"]
-                files.append(file)
-            except KeyError:
-                stop = True
-        return files
