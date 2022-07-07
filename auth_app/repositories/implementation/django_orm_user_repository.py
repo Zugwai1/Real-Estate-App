@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db import *
 from auth_app.dto import address_dto
 from auth_app.dto.user_dto import CreateDto, GetDto, EditDto, Login
-from auth_app.models import User
+from auth_app.models import User, Address
 from auth_app.repositories.inteface.user_repository import UserRepository
 
 
@@ -18,6 +18,7 @@ class DjangoORMUserRepository(UserRepository):
             if not user or not check_password(password=password, encoded=user.password):
                 return None
             return Login(
+                id=user.id,
                 full_name=f"{user.last_name} {user.first_name} {user.middle_name}",
                 email=user.email,
                 roles=[group.name for group in user.groups.all()],
@@ -32,34 +33,33 @@ class DjangoORMUserRepository(UserRepository):
 
     def create(self, user_dto: CreateDto) -> uuid.UUID:
         try:
-            groups = self.__get_or_create_group(user_dto.groups)
             user = User()
 
             # User Information
-            user.id = uuid.uuid4(),
-            user.first_name = user_dto.first_name,
-            user.last_name = user_dto.last_name,
-            user.middle_name = user_dto.middle_name,
-            user.email = user_dto.email,
-            user.phone_number = user_dto.phone_number,
-            user.nationality = user_dto.nationality,
-            user.username = user_dto.username,
-            user.password = make_password(password=user_dto.password),
+            user.first_name = user_dto.first_name
+            user.last_name = user_dto.last_name
+            user.middle_name = user_dto.middle_name
+            user.email = user_dto.email
+            user.phone_number = user_dto.phone_number
+            user.nationality = user_dto.nationality
+            user.username = user_dto.username
+            user.password = make_password(password=user_dto.password)
             user.DOB = user_dto.DOB
 
             # add user Address
-            user.address.id = uuid.uuid4(),
-            user.address.country = user_dto.country,
-            user.address.state = user_dto.state,
-            user.address.city = user_dto.city,
-            user.address.postal_code = user_dto.postal_code,
-            user.address.number_line = user_dto.number_line,
+            user.address = Address()
+            user.address.country = user_dto.country
+            user.address.state = user_dto.state
+            user.address.city = user_dto.city
+            user.address.postal_code = user_dto.postal_code
+            user.address.number_line = user_dto.number_line
             user.address.street = user_dto.street
+            user.address.save()
 
-            # add user Group
-            user.groups = groups
+            user.address_id = user.address.id
             user.save()
-            return user.id[0]
+            self.__get_or_create_group(user_dto.groups, user)
+            return user.id
         except (IntegrityError, Exception) as ex:
             logging.error(f"{ex} ,occurred while creating user")
             raise ex
@@ -135,16 +135,16 @@ class DjangoORMUserRepository(UserRepository):
     def edit(self, id: uuid.UUID, updated_user: EditDto) -> uuid.UUID:
         try:
             user = User.objects.get(id=id)
-            user.DOB = updated_user.DOB,
-            user.first_name = updated_user.first_name,
-            user.last_name = updated_user.last_name,
-            user.middle_name = updated_user.middle_name,
-            user.email = updated_user.email,
-            user.nationality = updated_user.nationality,
-            user.address.street = updated_user.street,
-            user.address.city = updated_user.city,
-            user.address.number_line = updated_user.number_line,
-            user.address.state = updated_user.state,
+            user.DOB = updated_user.DOB
+            user.first_name = updated_user.first_name
+            user.last_name = updated_user.last_name
+            user.middle_name = updated_user.middle_name
+            user.email = updated_user.email
+            user.nationality = updated_user.nationality
+            user.address.street = updated_user.street
+            user.address.city = updated_user.city
+            user.address.number_line = updated_user.number_line
+            user.address.state = updated_user.state
             user.phone_number = updated_user.phone_number
             user.save()
             return user.id
@@ -160,15 +160,14 @@ class DjangoORMUserRepository(UserRepository):
             raise ex
 
     @staticmethod
-    def __get_or_create_group(groups: List[str]) -> List[str] | None:
+    def __get_or_create_group(groups: List[str], user: User):
         if not groups:
             return None
         try:
-            result = []
             for group in groups:
                 obj, created = Group.objects.get_or_create(name=group)
-                result.append(obj)
-            return result
+                if obj:
+                    obj.user_set.add(user)
         except (ObjectDoesNotExist, MultipleObjectsReturned, Exception) as ex:
-            logging.error(f"{ex} Occurred while creating user")
+            logging.error(f"{ex} Occurred while adding user to group")
             raise ex

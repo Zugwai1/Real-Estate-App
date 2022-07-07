@@ -29,7 +29,7 @@ class PropertyView(APIView):
     @is_authenticated
     @authorize(["PropertyOwner"])
     def post(self, request):
-        request_data, = self.__set_attributes(request),
+        request_data = self.__set_attributes(request)
         request_data.images = list(map(FileStorage().save, self.file_storage.get_files(request)))
         response = accommodation_app_provider.property_service().create(model=CreateDto(
             description=request_data.description,

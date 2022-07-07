@@ -6,12 +6,12 @@ from NewToUk.shared.models.base_model import BaseModel
 
 
 class Address(BaseModel):
-    number_line = models.IntegerField("Address Number Line")
+    number_line = models.TextField("Address Number Line")
     street = models.CharField("Address street", max_length=2000, blank=False, null=False)
     city = models.CharField("Address city", max_length=2000, blank=False, null=False)
     state = models.CharField("Address state", max_length=2000, blank=False, null=False)
     country = models.CharField("Address country", max_length=2000, blank=False, null=False)
-    postal_code = models.IntegerField("Postal code")
+    postal_code = models.TextField("Postal code")
 
 
 class User(AbstractUser, BaseModel):
