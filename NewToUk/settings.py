@@ -41,9 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_app.apps.AuthAppConfig',
     'accommodation_support.apps.AccommodationSupportConfig',
-    'job_support.apps.JobSupportConfig',
-    'forum.apps.ForumConfig',
-    'legal_support.apps.LegalSupportConfig'
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [

@@ -3,7 +3,7 @@ from typing import List
 from uuid import UUID
 
 from NewToUk.shared.models.base_response import BaseResponse
-from auth_app.dto import user_dto
+from auth_app.dto import user_dto, address_dto
 
 
 @dataclass
@@ -41,12 +41,7 @@ class ListDto:
     name: str
     type: str
     user: user_dto.GetDto
-    number_line: int
-    street: str
-    city: str
-    state: str
-    country: str
-    postal_code: int
+    address: address_dto.GetDto
     images: List[str]
 
 

@@ -1,24 +1,28 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from NewToUk.shared.models.base_response import BaseResponse
 from NewToUk.shared.models.base_serializer import AppBaseSerializer
 from accommodation_support.providers import accommodation_app_provider
-from accommodation_support.serializers.property_serializer import ListPropertySerializer
+from accommodation_support.serializers.property_serializer import ListPropertySerializer, CreatePropertyResponseSerializer, CreatePropertySerializer
 from auth_app.views.view_decorators import is_authenticated, authorize
 from accommodation_support.dto.property_dto import CreatePropertyRequestModel, CreateDto
 from NewToUk.shared.Utilies.file_storage import FileStorage
-from auth_app.auth.JWT.token import decode
+from auth_app.auth.JWT.token import get_payload
 
 
 class PropertyView(APIView):
+    parser_classes = (MultiPartParser,)
     file_storage = FileStorage()
+    token_parameter = openapi.Parameter(name="Authorization", in_="header", type=openapi.TYPE_STRING, required=True)
 
+    @swagger_auto_schema(operation_id="List Properties",
+                         responses={"200": ListPropertySerializer(many=False), "404": AppBaseSerializer(many=False)})
     def get(self, request):
         response = accommodation_app_provider.property_service().list()
-        if isinstance(response, BaseResponse):
-            data = AppBaseSerializer(response).data
-            return Response(data=data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         if response.status:
             data = ListPropertySerializer(response).data
             return Response(data=data, status=status.HTTP_200_OK)
@@ -26,11 +30,16 @@ class PropertyView(APIView):
             data = AppBaseSerializer(response).data
             return Response(data=data, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(operation_id="Create Property",
+                         responses={"200": CreatePropertyResponseSerializer(many=False), "400": AppBaseSerializer(many=False)},
+                         manual_parameters=[token_parameter], request_body=CreatePropertySerializer)
     @is_authenticated
     @authorize(["PropertyOwner"])
     def post(self, request):
         request_data = self.__set_attributes(request)
-        request_data.images = list(map(FileStorage().save, self.file_storage.get_files(request)))
+        if isinstance(request_data, BaseResponse):
+            return Response(data=request_data.__dict__, status=status.HTTP_400_BAD_REQUEST)
+        request_data.images = list(map(FileStorage().save, self.file_storage.get_files(request, "image")))
         response = accommodation_app_provider.property_service().create(model=CreateDto(
             description=request_data.description,
             postal_code=request_data.postal_code,
@@ -42,7 +51,7 @@ class PropertyView(APIView):
             name=request_data.name,
             type=request_data.type,
             images=request_data.images,
-            user_id=decode(request).id
+            user_id=get_payload(request)["id"]
         ))
         if response.status:
             return Response(data=response.__dict__, status=status.HTTP_200_OK)

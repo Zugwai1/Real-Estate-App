@@ -14,14 +14,15 @@ class FileStorage:
         return f"{self.FS.url(filename)}"
 
     @staticmethod
-    def get_files(request) -> List:
+    def get_files(request, file_type: str) -> List:
         stop: bool = False
         count: int = 1
         files: List = []
         while not stop:
             try:
-                file = request.data[f"image{count}"]
+                file = request.data[f"{file_type}{count}"]
                 files.append(file)
+                count += 1
             except KeyError:
                 stop = True
         return files

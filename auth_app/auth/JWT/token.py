@@ -1,5 +1,4 @@
 import datetime
-import json
 import logging
 from os import getenv
 from cryptography.hazmat.primitives import serialization
@@ -10,26 +9,26 @@ import jwt
 def generate_token(payload: Login) -> str:
     try:
         exp = datetime.datetime.now() + datetime.timedelta(seconds=float(getenv("EXPIRY_TIME")))
-        nbf = datetime.datetime.now()
         iss = getenv("ISS")
         aud = getenv("AUD")
         iat = datetime.datetime.now()
         algorithm = getenv("ALGORITHM")
         key = getenv("SECRET_KEY")
         data = payload.__dict__
-        return jwt.encode(payload={
+        token = jwt.encode(payload={
             "data": data,
             "exp": exp,
             "iss": iss,
             "aud": aud,
             "iat": iat
         }, algorithm=algorithm, key=key)
+        return f"Bearer {token}"
     except (OSError, Exception) as ex:
         logging.error(f"{ex} occurred while generating token")
         raise ex
 
 
-def decode(token: str = None, request = None) -> Login:
+def decode(token: str = None, request=None) -> Login:
     try:
         if not token:
             token = get_token(request)
@@ -53,6 +52,12 @@ def decode(token: str = None, request = None) -> Login:
     except jwt.exceptions.DecodeError as ex:
         logging.error(f"{ex} occurred while generating token")
         raise ex
+
+
+def get_payload(request):
+    token: str = get_token(request)
+    data = jwt.decode(token, options={"verify_signature": False})
+    return data["data"]
 
 
 def get_token(request):

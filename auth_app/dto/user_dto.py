@@ -59,7 +59,7 @@ class GetDto:
 
 @dataclass
 class Login:
-    id: uuid.UUID
+    id: uuid.UUID | str
     full_name: str
     email: str
     username: str

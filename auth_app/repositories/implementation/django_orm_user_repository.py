@@ -18,7 +18,7 @@ class DjangoORMUserRepository(UserRepository):
             if not user or not check_password(password=password, encoded=user.password):
                 return None
             return Login(
-                id=user.id,
+                id=str(user.id),
                 full_name=f"{user.last_name} {user.first_name} {user.middle_name}",
                 email=user.email,
                 roles=[group.name for group in user.groups.all()],

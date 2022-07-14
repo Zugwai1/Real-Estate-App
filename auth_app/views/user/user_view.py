@@ -1,3 +1,5 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,19 +9,26 @@ from auth_app.dto.user_dto import CreateUserRequestModel
 from auth_app.providers import auth_providers
 from auth_app.dto.user_dto import CreateDto
 from auth_app.views.view_decorators import is_authenticated, authorize
-from auth_app.serializers.use_serializer import ListUserSerializer
+from auth_app.serializers.use_serializer import ListUserSerializer, UserResponseSerializer, CreateUserSerializer
 
 
 class UserView(APIView):
+    token_parameter = openapi.Parameter(name="Authorization", in_="header", type=openapi.TYPE_STRING, required=True)
 
+    @swagger_auto_schema(operation_id="List Users", responses={"200": ListUserSerializer(many=False)},
+                         manual_parameters=[token_parameter])
     @is_authenticated
     @authorize(["Admin"])
     def get(self, request):
         response = auth_providers.user_service().list()
-        serializer = ListUserSerializer(response)
-        return Response(data=serializer.data,
+        serializer = ListUserSerializer(response).data
+        return Response(data=serializer,
                         status=status.HTTP_200_OK if response.status else status.HTTP_404_NOT_FOUND)
 
+    @swagger_auto_schema(operation_id="Create User",
+                         responses={"200": UserResponseSerializer(many=False),
+                                    "400": AppBaseSerializer(many=False)},
+                         request_body=CreateUserSerializer)
     def post(self, request):
         model = self.__set_attribute(request)
         if isinstance(model, BaseResponse):
@@ -43,9 +52,9 @@ class UserView(APIView):
             number_line=model.number_line,
             street=model.street
         )
-        response = auth_providers.user_service().create(user_dto)
-        return Response(data=response.__dict__,
-                        status=status.HTTP_200_OK if response.status else status.HTTP_400_BAD_REQUEST)
+        response = UserResponseSerializer(auth_providers.user_service().create(user_dto)).data
+        return Response(data=response,
+                        status=status.HTTP_200_OK if response["status"] else status.HTTP_400_BAD_REQUEST)
 
     @staticmethod
     def __set_attribute(request):

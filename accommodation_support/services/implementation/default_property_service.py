@@ -15,7 +15,7 @@ class DefaultPropertyService(PropertyService):
     def __init__(self, repository):
         self.repository = repository
 
-    def create(self, model: CreateDto) -> BaseResponse:
+    def create(self, model: CreateDto) -> BaseResponse | CreatePropertyResponseModel:
         try:
             result = self.repository.create(model)
             if result:
@@ -36,7 +36,7 @@ class DefaultPropertyService(PropertyService):
                 message="An error occurred while creating property",
             )
 
-    def search(self, filter: str) -> BaseResponse:
+    def search(self, filter: str) -> BaseResponse | ListPropertyResponseModel:
         try:
             result = self.repository.search(filter)
             if result:
@@ -47,17 +47,18 @@ class DefaultPropertyService(PropertyService):
                 )
             else:
                 return ListPropertyResponseModel(
-                    status=True,
+                    status=False,
                     message="Unsuccessful",
                     properties=[]
                 )
-        except (Exception,):
-            return BaseResponse(
-                status=True,
-                message="An error occurred",
+        except (Exception,) as ex:
+            return ListPropertyResponseModel(
+                status=False,
+                message=f"{ex}, An error occurred",
+                properties=[]
             )
 
-    def edit(self, id: uuid.UUID, model: EditDto) -> BaseResponse:
+    def edit(self, id: uuid.UUID, model: EditDto) -> BaseResponse | EditPropertyResponseModel:
         try:
             result = self.repository.edit(id, model)
             if result:
@@ -78,7 +79,7 @@ class DefaultPropertyService(PropertyService):
                 message="An error occurred",
             )
 
-    def list(self) -> BaseResponse:
+    def list(self) -> BaseResponse | ListPropertyResponseModel:
         try:
             result = self.repository.list()
             if result:
@@ -99,7 +100,7 @@ class DefaultPropertyService(PropertyService):
                 message="An error occurred",
             )
 
-    def get(self, id: uuid.UUID) -> BaseResponse:
+    def get(self, id: uuid.UUID) -> BaseResponse | GetPropertyResponseModel:
         try:
             result = self.repository.get(id)
             if result:

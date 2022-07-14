@@ -95,7 +95,7 @@ class DefaultUserService(UserService):
                 message="User Object Updated Successfully"
             )
         except (ObjectDoesNotExist, MultipleObjectsReturned):
-            return CreateUserResponseModel(
+            return EditUserResponseModel(
                 user_id=None,
                 status=False,
                 message="An error occurred"
@@ -105,7 +105,7 @@ class DefaultUserService(UserService):
         try:
             self.repository.delete(id)
             return DeleteUserResponseModel(
-                message="Use Object Successfully Delete",
+                message="Successfully",
                 status=True
             )
         except (ObjectDoesNotExist, MultipleObjectsReturned):
