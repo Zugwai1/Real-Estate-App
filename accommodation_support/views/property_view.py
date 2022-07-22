@@ -7,7 +7,8 @@ from rest_framework.views import APIView
 from NewToUk.shared.models.base_response import BaseResponse
 from NewToUk.shared.models.base_serializer import AppBaseSerializer
 from accommodation_support.providers import accommodation_app_provider
-from accommodation_support.serializers.property_serializer import ListPropertySerializer, CreatePropertyResponseSerializer, CreatePropertySerializer
+from accommodation_support.serializers.property_serializer import ListPropertySerializer, \
+    CreatePropertyResponseSerializer, CreatePropertySerializer
 from auth_app.views.view_decorators import is_authenticated, authorize
 from accommodation_support.dto.property_dto import CreatePropertyRequestModel, CreateDto
 from NewToUk.shared.Utilies.file_storage import FileStorage
@@ -31,7 +32,8 @@ class PropertyView(APIView):
             return Response(data=data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(operation_id="Create Property",
-                         responses={"200": CreatePropertyResponseSerializer(many=False), "400": AppBaseSerializer(many=False)},
+                         responses={"200": CreatePropertyResponseSerializer(many=False),
+                                    "400": AppBaseSerializer(many=False)},
                          manual_parameters=[token_parameter], request_body=CreatePropertySerializer)
     @is_authenticated
     @authorize(["PropertyOwner"])

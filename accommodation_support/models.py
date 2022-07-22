@@ -10,6 +10,9 @@ class Property(BaseModel):
     address = models.OneToOneField(Address, on_delete=models.RESTRICT, blank=False, null=False)
     description = models.TextField(null=True)
 
+    def __str__(self):
+        return f"Name: {self.name}, Type: {self.type}, Description: {self.description}"
+
 
 class Image(BaseModel):
     property = models.ForeignKey(to="Property", on_delete=models.CASCADE)

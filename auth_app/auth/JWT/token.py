@@ -54,7 +54,7 @@ def decode(token: str = None, request=None) -> Login:
         raise ex
 
 
-def get_payload(request):
+def get_payload(request) -> dict:
     token: str = get_token(request)
     data = jwt.decode(token, options={"verify_signature": False})
     return data["data"]

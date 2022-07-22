@@ -3,12 +3,11 @@ import uuid
 from typing import List
 
 from django.db.models import Q
-from django.utils.functional import Promise
 
-from auth_app.dto import user_dto, address_dto
 from accommodation_support.dto.property_dto import ListDto, EditDto, CreateDto, GetDto
 from accommodation_support.models import Property, Image
 from accommodation_support.repositories.interface.property_repository import PropertyRepository
+from auth_app.dto import user_dto, address_dto
 from auth_app.models import Address
 
 

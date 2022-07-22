@@ -73,3 +73,28 @@ class CreatePropertyResponseSerializer(AppBaseSerializer):
 
 class EditPropertyResponseSerializer(AppBaseSerializer):
     property_id = serializers.UUIDField(required=False)
+
+
+class PropertyEmailSerializer(serializers.Serializer):
+    message = serializers.CharField(required=True)
+    receiver = serializers.EmailField(required=True)
+    subject = serializers.CharField(required=True)
+    property_id = serializers.UUIDField(required=True)
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
+
+class PropertySMSSerializer(serializers.Serializer):
+    message = serializers.CharField(required=True)
+    sender = serializers.CharField(required=True)
+    recipient = serializers.CharField(required=True)
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
