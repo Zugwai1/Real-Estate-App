@@ -13,6 +13,10 @@ class PropertySerializer(serializers.Serializer):
     address = AddressSerializer(many=False, required=False)
     description = serializers.CharField(required=False)
     images = serializers.ListField(child=serializers.CharField(required=False))
+    status = serializers.CharField()
+    price = serializers.DecimalField(required=False, max_digits=60, decimal_places=10)
+    nuber_of_bedrooms = serializers.IntegerField(required=False)
+    number_of_bathrooms = serializers.IntegerField(required=False)
 
     def update(self, instance, validated_data):
         pass
@@ -32,6 +36,10 @@ class CreatePropertySerializer(serializers.Serializer):
     country = serializers.CharField(required=False)
     postal_code = serializers.IntegerField(required=False)
     image1 = serializers.FileField(required=False)
+    status = serializers.CharField()
+    price = serializers.DecimalField(required=False, max_digits=60, decimal_places=10)
+    nuber_of_bedrooms = serializers.IntegerField(required=False)
+    number_of_bathrooms = serializers.IntegerField(required=False)
 
     def update(self, instance, validated_data):
         pass
@@ -51,6 +59,10 @@ class EditPropertySerializer(serializers.Serializer):
     country = serializers.CharField(required=False)
     postal_code = serializers.IntegerField(required=False)
     image1 = serializers.FileField(required=False)
+    status = serializers.CharField()
+    price = serializers.DecimalField(required=False, max_digits=60, decimal_places=10)
+    nuber_of_bedrooms = serializers.IntegerField(required=False)
+    number_of_bathrooms = serializers.IntegerField(required=False)
 
     def update(self, instance, validated_data):
         pass

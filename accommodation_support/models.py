@@ -9,6 +9,10 @@ class Property(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     address = models.OneToOneField(Address, on_delete=models.RESTRICT, blank=False, null=False)
     description = models.TextField(null=True)
+    status = models.CharField(max_length=100, null=True)
+    price = models.DecimalField(max_digits=60, decimal_places=10, null=True)
+    number_of_bedrooms = models.IntegerField(null=True)
+    number_of_bathrooms = models.IntegerField(null=True)
 
     def __str__(self):
         return f"Name: {self.name}, Type: {self.type}, Description: {self.description}"

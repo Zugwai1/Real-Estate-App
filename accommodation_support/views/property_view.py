@@ -53,7 +53,11 @@ class PropertyView(APIView):
             name=request_data.name,
             type=request_data.type,
             images=request_data.images,
-            user_id=get_payload(request)["id"]
+            user_id=get_payload(request)["id"],
+            number_of_bathrooms=request_data.number_of_bathrooms,
+            number_of_bedrooms=request_data.number_of_bathrooms,
+            price=request_data.price,
+            status=request_data.status
         ))
         if response.status:
             return Response(data=response.__dict__, status=status.HTTP_200_OK)

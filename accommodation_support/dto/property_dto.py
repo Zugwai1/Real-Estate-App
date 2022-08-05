@@ -18,6 +18,10 @@ class CreateDto:
     state: str
     country: str
     postal_code: int
+    status: str
+    number_of_bedrooms: int
+    number_of_bathrooms: int
+    price: float
     images: List[str]
 
 
@@ -32,6 +36,10 @@ class EditDto:
     state: str
     country: str
     postal_code: int
+    status: str
+    number_of_bedrooms: int
+    number_of_bathrooms: int
+    price: float
     images: List[str]
 
 
@@ -40,6 +48,10 @@ class ListDto:
     id: UUID
     name: str
     type: str
+    status: str
+    price: float
+    number_of_bedrooms: int
+    number_of_bathrooms: int
     user: user_dto.GetDto
     address: address_dto.GetDto
     images: List[str]
@@ -58,7 +70,22 @@ class GetDto:
     state: str
     country: str
     postal_code: int
+    status: str
+    number_of_bedrooms: int
+    number_of_bathrooms: int
+    price: float
     images: List[str]
+
+
+@dataclass
+class SearchDto:
+    keyword: str
+    price: float
+    number_of_bedrooms: int
+    number_of_bathrooms: int
+    status: str
+    location: str
+    property_type: str
 
 
 # response models
@@ -95,4 +122,8 @@ class CreatePropertyRequestModel:
     state: str
     country: str
     postal_code: int
+    status: str
+    number_of_bedrooms: int
+    number_of_bathrooms: int
+    price: float
     images: List[str] | None

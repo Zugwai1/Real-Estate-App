@@ -32,8 +32,8 @@ urlpatterns = [
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path("swagger", schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('auth/', include("auth_app.urls.auth")),
-    path('users/', include("auth_app.urls.user")),
-    path('properties/', include("accommodation_support.urls.property")),
+    path('api/v1/auth/', include("auth_app.urls.auth")),
+    path('api/v1/users/', include("auth_app.urls.user")),
+    path('api/v1/properties/', include("accommodation_support.urls.property")),
     path("", include('web.urls'))
 ]

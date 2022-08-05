@@ -4,7 +4,7 @@ from typing import List
 
 from NewToUk.shared.models.base_response import BaseResponse
 from accommodation_support.dto.property_dto import CreateDto, EditDto, CreatePropertyResponseModel, \
-    GetPropertyResponseModel, EditPropertyResponseModel, ListPropertyResponseModel
+    GetPropertyResponseModel, EditPropertyResponseModel, ListPropertyResponseModel,  SearchDto
 
 
 class PropertyService(metaclass=ABCMeta):
@@ -13,7 +13,7 @@ class PropertyService(metaclass=ABCMeta):
         """Create a property Object"""
         raise NotImplementedError
 
-    def search(self, filter: str) -> ListPropertyResponseModel | BaseResponse:
+    def search(self, model: SearchDto) -> ListPropertyResponseModel | BaseResponse:
         """Search property object"""
         raise NotImplementedError
 

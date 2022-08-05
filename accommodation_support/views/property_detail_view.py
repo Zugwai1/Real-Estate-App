@@ -59,6 +59,10 @@ class PropertyDetailView(APIView):
             name=request_data.name,
             type=request_data.type,
             images=request_data.images,
+            number_of_bathrooms=request_data.number_of_bathrooms,
+            number_of_bedrooms=request_data.number_of_bedrooms,
+            status=request_data.status,
+            price=request_data.price,
         ))
         if response.status:
             return Response(data=response.__dict__, status=status.HTTP_200_OK)
@@ -90,6 +94,10 @@ class PropertyDetailView(APIView):
                 number_line=request.data["number_line"],
                 name=request.data["name"],
                 type=request.data["type"],
+                number_of_bathrooms=request.data["number_of_bathrooms"],
+                number_of_bedrooms=request.data["number_of_bedrooms"],
+                status=request.data["status"],
+                price=request.data["price"],
                 images=None
             )
             return property_request_model

@@ -18,7 +18,7 @@ class PropertySearchView(APIView):
                                     "400": ListPropertySerializer(many=False)},
                          manual_parameters=[token_parameter])
     @is_authenticated
-    def get(self, request, filter: str):
+    def get(self, request):
         response = accommodation_app_provider.property_service().search(filter)
         data = ListPropertySerializer(response).data
         if response.status:

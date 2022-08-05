@@ -60,7 +60,7 @@ class UserView(APIView):
     def __set_attribute(request):
         try:
             model = CreateUserRequestModel(
-                username=request.data["username"],
+                username=request.data["email"],
                 email=request.data["email"],
                 first_name=request.data["first_name"],
                 last_name=request.data["last_name"],

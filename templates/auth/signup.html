@@ -14,186 +14,212 @@
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
-                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-                    <div class="card-body p-0">
-                        <div class="row g-0">
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <h3 class="fw-normal mb-5" style="color: #4835d4;">General Infomation</h3>
+                <form action="" id="registration-form">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-lg-6">
+                                    <div class="p-5">
+                                        <h3 class="fw-normal mb-5" style="color: #4835d4;">General Information</h3>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 pb-2">
 
-                                    <div class="mb-4 pb-2">
-                                        <select class="select">
-                                            <option value="1">Title</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                            <option value="4">Four</option>
-                                        </select>
-                                    </div>
+                                                <div class="form-outline">
+                                                    <input type="text" id="first_name"
+                                                           class="form-control form-control-lg" name="first_name"
+                                                           required/>
+                                                    <label class="form-label" for="first_name">First name</label>
+                                                </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6 mb-4 pb-2">
-
-                                            <div class="form-outline">
-                                                <input type="text" id="form3Examplev2"
-                                                       class="form-control form-control-lg"/>
-                                                <label class="form-label" for="form3Examplev2">First name</label>
                                             </div>
+                                            <div class="col-md-6 mb-4 pb-2">
 
-                                        </div>
-                                        <div class="col-md-6 mb-4 pb-2">
+                                                <div class="form-outline">
+                                                    <input type="text" id="middle_name"
+                                                           class="form-control form-control-lg" name="middle_name"
+                                                           required/>
+                                                    <label class="form-label" for="middle_name">Middle name</label>
+                                                </div>
 
-                                            <div class="form-outline">
-                                                <input type="text" id="form3Examplev3"
-                                                       class="form-control form-control-lg"/>
-                                                <label class="form-label" for="form3Examplev3">Last name</label>
                                             </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-4 pb-2">
-                                        <select class="select">
-                                            <option value="1">Position</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                            <option value="4">Four</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-4 pb-2">
-                                        <div class="form-outline">
-                                            <input type="text" id="form3Examplev4"
-                                                   class="form-control form-control-lg"/>
-                                            <label class="form-label" for="form3Examplev4">Position</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 mb-4 pb-2 mb-md-0 pb-md-0">
-
-                                            <div class="form-outline">
-                                                <input type="text" id="form3Examplev5"
-                                                       class="form-control form-control-lg"/>
-                                                <label class="form-label" for="form3Examplev5">Bussines
-                                                    Arena</label>
+                                            <div class="col-md-6 mb-4 pb-2">
+                                                <div class="form-outline">
+                                                    <input type="text" id="last_name"
+                                                           class="form-control form-control-lg" name="last_name"
+                                                           required/>
+                                                    <label class="form-label" for="last_name">Last name</label>
+                                                </div>
                                             </div>
-
+                                            <div class="col-md-6 mb-4 pb-2">
+                                                <div class="form-outline">
+                                                    <input type="text" id="email"
+                                                           class="form-control form-control-lg" name="email" required/>
+                                                    <label class="form-label" for="email">Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+                                                <div class="form-outline">
+                                                    <input type="text" id="nationality"
+                                                           class="form-control form-control-lg" name="nationality"
+                                                           required/>
+                                                    <label class="form-label" for="nationality">Nationality</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+                                                <div class="form-outline">
+                                                    <input type="date" id="dob"
+                                                           class="form-control form-control-lg" name="dob" required/>
+                                                    <label class="form-label" for="dob">Date of Birth</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+                                                <div class="form-outline">
+                                                    <input type="password" id="password"
+                                                           class="form-control form-control-lg" name="password"
+                                                           required/>
+                                                    <label class="form-label" for="password">Password</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+                                                <div class="form-outline">
+                                                    <input type="password" id="confirm_password"
+                                                           class="form-control form-control-lg"
+                                                           name="confirm_password" required/>
+                                                    <label class="form-label" for="confirm_password">Confirm
+                                                        Password</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-4 pb-2">
+                                                <select class="custom-select form-control form-control-lg" id="group"
+                                                        name="groups"
+                                                        required>
+                                                    <option selected>Choose...</option>
+                                                    <option value="User">User</option>
+                                                    <option value="PropertyOwner">Property Owner</option>
+                                                    <option value="Agent">Agent</option>
+                                                </select>
+                                                <label for="group">Sign Up As</label>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
 
-                                            <select class="select">
-                                                <option value="1">Employees</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                                <option value="4">Four</option>
-                                            </select>
 
-                                        </div>
                                     </div>
-
                                 </div>
-                            </div>
-                            <div class="col-lg-6 bg-indigo text-white">
-                                <div class="p-5">
-                                    <h3 class="fw-normal mb-5">Contact Details</h3>
+                                <div class="col-lg-6 bg-indigo text-white">
+                                    <div class="p-5">
+                                        <h3 class="fw-normal mb-5">Contact Details</h3>
 
-                                    <div class="mb-4 pb-2">
-                                        <div class="form-outline form-white">
-                                            <input type="text" id="form3Examplea2"
-                                                   class="form-control form-control-lg"/>
-                                            <label class="form-label" for="form3Examplea2">Street + Nr</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-4 pb-2">
-                                        <div class="form-outline form-white">
-                                            <input type="text" id="form3Examplea3"
-                                                   class="form-control form-control-lg"/>
-                                            <label class="form-label" for="form3Examplea3">Additional
-                                                Information</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-5 mb-4 pb-2">
-
+                                        <div class="mb-4 pb-2">
                                             <div class="form-outline form-white">
-                                                <input type="text" id="form3Examplea4"
-                                                       class="form-control form-control-lg"/>
-                                                <label class="form-label" for="form3Examplea4">Zip Code</label>
+                                                <select class="custom-select form-control form-control-lg" id="country"
+                                                        name="country"
+                                                        required>
+                                                    <option selected>Choose...</option>
+                                                </select>
+                                                <label class="form-label" for="country">Country</label>
                                             </div>
-
                                         </div>
-                                        <div class="col-md-7 mb-4 pb-2">
 
+                                        <div class="mb-4 pb-2">
                                             <div class="form-outline form-white">
-                                                <input type="text" id="form3Examplea5"
-                                                       class="form-control form-control-lg"/>
-                                                <label class="form-label" for="form3Examplea5">Place</label>
+                                                <select class="custom-select form-control form-control-lg" id="state"
+                                                        name="state"
+                                                        required>
+                                                    <option selected>Choose...</option>
+                                                </select>
+                                                <label class="form-label" for="state">
+                                                    State</label>
                                             </div>
-
                                         </div>
-                                    </div>
 
-                                    <div class="mb-4 pb-2">
-                                        <div class="form-outline form-white">
-                                            <input type="text" id="form3Examplea6"
-                                                   class="form-control form-control-lg"/>
-                                            <label class="form-label" for="form3Examplea6">Country</label>
-                                        </div>
-                                    </div>
+                                        <div class="row">
+                                            <div class="col-md-5 mb-4 pb-2">
 
-                                    <div class="row">
-                                        <div class="col-md-5 mb-4 pb-2">
+                                                <div class="form-outline form-white">
+                                                    <input type="text" id="postal_code"
+                                                           class="form-control form-control-lg" name="postal_code"
+                                                           required/>
+                                                    <label class="form-label" for="postal_code">Zip Code/Postal
+                                                        Code</label>
+                                                </div>
 
-                                            <div class="form-outline form-white">
-                                                <input type="text" id="form3Examplea7"
-                                                       class="form-control form-control-lg"/>
-                                                <label class="form-label" for="form3Examplea7">Code +</label>
                                             </div>
+                                            <div class="col-md-7 mb-4 pb-2">
 
-                                        </div>
-                                        <div class="col-md-7 mb-4 pb-2">
+                                                <div class="form-outline form-white">
+                                                    <input type="text" id="city"
+                                                           class="form-control form-control-lg" name="city" required/>
+                                                    <label class="form-label" for="city">City</label>
+                                                </div>
 
-                                            <div class="form-outline form-white">
-                                                <input type="text" id="form3Examplea8"
-                                                       class="form-control form-control-lg"/>
-                                                <label class="form-label" for="form3Examplea8">Phone Number</label>
                                             </div>
-
                                         </div>
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <div class="form-outline form-white">
-                                            <input type="text" id="form3Examplea9"
-                                                   class="form-control form-control-lg"/>
-                                            <label class="form-label" for="form3Examplea9">Your Email</label>
+                                        <div class="row">
+                                            <div class="col-md-5 mb-4 pb-2">
+                                                <div class="form-outline form-white">
+                                                    <input type="text" id="street"
+                                                           class="form-control form-control-lg" name="street" required/>
+                                                    <label class="form-label" for="street">Street</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 mb-4 pb-2">
+                                                <div class="form-outline form-white">
+                                                    <input type="text" id="number_line"
+                                                           class="form-control form-control-lg" name="number_line"
+                                                           required/>
+                                                    <label class="form-label" for="number_line">Number Line</label>
+                                                </div>
+                                            </div>
                                         </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-5 mb-4 pb-2">
+
+                                                <div class="form-outline form-white">
+                                                    <input type="text" id="code"
+                                                           class="form-control form-control-lg" name="code" required/>
+                                                    <label class="form-label" for="code">Code +</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-white">
+                                                    <input type="text" id="phone_number"
+                                                           class="form-control form-control-lg" name="phone_number"
+                                                           required/>
+                                                    <label class="form-label" for="phone_number">Phone Number</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check d-flex justify-content-start mb-4 pb-3">
+                                            <input class="form-check-input me-3" type="checkbox" value=""
+                                                   id="condition" required/>
+                                            <label class="form-check-label text-white" for="condition">
+                                                I do accept the <a href="#!" class="text-white"><u>Terms and
+                                                Conditions</u></a> of your
+                                                site.
+                                            </label>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-light btn-lg"
+                                                data-mdb-ripple-color="dark" id="submit-btn"
+                                        >Submit
+                                        </button>
                                     </div>
-
-                                    <div class="form-check d-flex justify-content-start mb-4 pb-3">
-                                        <input class="form-check-input me-3" type="checkbox" value=""
-                                               id="form2Example3c"/>
-                                        <label class="form-check-label text-white" for="form2Example3">
-                                            I do accept the <a href="#!" class="text-white"><u>Terms and
-                                            Conditions</u></a> of your
-                                            site.
-                                        </label>
-                                    </div>
-
-                                    <button type="button" class="btn btn-light btn-lg"
-                                            data-mdb-ripple-color="dark">Register
-                                    </button>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </section>
 </body>
+<script src="{% static "js/app/signup.js" %}"></script>
+<script src="{% static "js/sweetalert2.min.js" %}"></script>
 </html>

@@ -4,7 +4,7 @@ from typing import List
 
 from django.db.models import Q
 
-from accommodation_support.dto.property_dto import ListDto, EditDto, CreateDto, GetDto
+from accommodation_support.dto.property_dto import ListDto, EditDto, CreateDto, GetDto, SearchDto
 from accommodation_support.models import Property, Image
 from accommodation_support.repositories.interface.property_repository import PropertyRepository
 from auth_app.dto import user_dto, address_dto
@@ -23,6 +23,10 @@ class DjangoPropertyRepository(PropertyRepository):
             property.user_id = model.user_id
             property.address_id = address.id
             property.type = model.type
+            property.price = model.price
+            property.number_of_bedrooms = model.number_of_bedrooms
+            property.number_of_bathrooms = model.number_of_bathrooms
+            property.status = model.status
             property.save()
             self.__create_images(property_id=property.id, images=model.images)
             return property.id
@@ -42,6 +46,10 @@ class DjangoPropertyRepository(PropertyRepository):
             property.address.state = model.state
             property.address.country = model.country
             property.address.postal_code = model.postal_code
+            property.price = model.price
+            property.number_of_bedrooms = model.number_of_bedrooms
+            property.number_of_bathrooms = model.number_of_bathrooms
+            property.status = model.status
             self.__update_images(property.image_set.all(), model.images)
             property.address.save()
             property.save()
@@ -78,7 +86,9 @@ class DjangoPropertyRepository(PropertyRepository):
                     nationality=property.user.nationality,
                     address=property.user.address,
                     phone_number=property.user.phone_number
-                )
+                ),
+                price=property.price,
+                status=property.status,
             )
             objects.append(item)
         return objects
@@ -98,6 +108,10 @@ class DjangoPropertyRepository(PropertyRepository):
                 name=property.name,
                 images=[images.image for images in property.image_set.all()],
                 description=property.description,
+                price=property.price,
+                status=property.status,
+                number_of_bedrooms=property.number_of_bedrooms,
+                number_of_bathrooms=property.number_of_bathrooms,
                 user=user_dto.GetDto(
                     id=property.user.id,
                     username=property.user.username,
@@ -116,12 +130,14 @@ class DjangoPropertyRepository(PropertyRepository):
             logging.error(f"{ex} ,occurred while getting property")
             raise ex
 
-    def search(self, filter: str) -> List[ListDto]:
+    def search(self, model: SearchDto) -> List[ListDto]:
         try:
             properties = Property.objects.select_related("user", "address").filter(
-                Q(name__icontains=filter) | Q(description__icontains=filter) | Q(type__icontains=filter) | Q(
-                    address__state__icontains=filter) | Q(address__city__icontains=filter) | Q(
-                    address__country__icontains=filter) | Q(address__street__icontains=filter)
+                Q(name__icontains=model.keyword) | Q(description__icontains=model.keyword) | Q(type__icontains=model.property_type) | Q(
+                    address__state__icontains=model.location) | Q(address__city__icontains=model.location) | Q(
+                    address__country__icontains=model.location) | Q(address__street__icontains=model.location) | Q(
+                    number_of_bathrooms=model.number_of_bathrooms) | Q(number_of_bedrooms=model.number_of_bedrooms) | Q(
+                    price=model.price) | Q(status=model.status)
             )
             objects: List[ListDto] = []
             for property in properties:
@@ -142,7 +158,11 @@ class DjangoPropertyRepository(PropertyRepository):
                         nationality=property.user.nationality,
                         address=property.user.address,
                         phone_number=property.user.phone_number
-                    )
+                    ),
+                    status=property.status,
+                    number_of_bathrooms=property.number_of_bathrooms,
+                    number_of_bedrooms=property.number_of_bedrooms,
+                    price=property.price
                 )
                 objects.append(item)
             return objects
@@ -182,4 +202,3 @@ class DjangoPropertyRepository(PropertyRepository):
         except (Exception, Image.DoesNotExist, Image.MultipleObjectsReturned) as ex:
             logging.error(f"{ex} ,occurred while updating images")
             raise ex
-

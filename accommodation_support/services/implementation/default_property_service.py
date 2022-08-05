@@ -4,7 +4,7 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 
 from NewToUk.shared.models.base_response import BaseResponse
 from accommodation_support.dto.property_dto import EditDto, CreateDto, CreatePropertyResponseModel, \
-    GetPropertyResponseModel, ListPropertyResponseModel, EditPropertyResponseModel
+    GetPropertyResponseModel, ListPropertyResponseModel, EditPropertyResponseModel, SearchDto
 from accommodation_support.repositories.interface.property_repository import PropertyRepository
 from accommodation_support.services.interface.property_service import PropertyService
 
@@ -36,9 +36,9 @@ class DefaultPropertyService(PropertyService):
                 message="An error occurred while creating property",
             )
 
-    def search(self, filter: str) -> BaseResponse | ListPropertyResponseModel:
+    def search(self, model: SearchDto) -> BaseResponse | ListPropertyResponseModel:
         try:
-            result = self.repository.search(filter)
+            result = self.repository.search(model)
             if result:
                 return ListPropertyResponseModel(
                     status=True,
