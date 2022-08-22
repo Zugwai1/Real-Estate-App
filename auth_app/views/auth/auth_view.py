@@ -20,7 +20,8 @@ class AuthView(APIView):
     def post(self, request):
         model = self.__get_attribute_from_request(request)
         response = self.__authenticate(username=model.username, password=model.password)
-        return Response(data=response.__dict__,
+        data = LoginResponseSerializer(response).data
+        return Response(data=data,
                         status=status.HTTP_200_OK if response.status else status.HTTP_400_BAD_REQUEST)
 
     @staticmethod
@@ -31,7 +32,8 @@ class AuthView(APIView):
                 return LoginResponseModel(
                     token=token.generate_token(user),
                     status=True,
-                    message="Successful"
+                    message="Successful",
+                    user=user
                 )
             else:
                 return BaseResponse(

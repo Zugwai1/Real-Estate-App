@@ -36,3 +36,8 @@ class PropertyService(metaclass=ABCMeta):
     def delete(self, id: uuid.UUID) -> BaseResponse:
         """Delete Property Object"""
         raise NotImplementedError
+
+    @abstractmethod
+    def get_by_user_id(self, user_id: uuid):
+        """Get property by user Id"""
+        raise NotImplementedError

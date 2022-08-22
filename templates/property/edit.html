@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <p id="keep" hidden>{{ property_id }}</p>
+                <form id="property-form">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Property Name" name="name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="type">Type</label>
+                            <select name="type" id="type" class="form-control">
+                                <option value="Rent">Rent</option>
+                                <option value="Sales">Sales</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="number_of_bedrooms">Number of Bedrooms</label>
+                            <input type="number" class="form-control" id="number_of_bedrooms"
+                                   placeholder="Number of Bedrooms" name="number_of_bedrooms">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="number_of_bathrooms">Number of Bathrooms</label>
+                            <input type="number" class="form-control" id="number_of_bathrooms"
+                                   placeholder="Number of Bathrooms" name="number_of_bathrooms">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="status">Status</label>
+                            <select id="status" class="form-control" name="status">
+                                <option selected>Available</option>
+                                <option>Not Available</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="number_line">Address Number line</label>
+                            <input type="number" class="form-control" id="number_line"
+                                   placeholder="Number Line" name="number_line">
+                        </div>
+                         <div class="form-group col-md-4">
+                            <label for="street">Street</label>
+                            <input type="text" class="form-control" id="street"
+                                   placeholder="Street" name="street">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" name="city">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="state">State</label>
+                            <select id="state" class="form-control" name="state">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="postal_code">Postal Code</label>
+                            <input type="text" class="form-control" id="postal_code" name="postal_code">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                         <div class="form-group col-md-6">
+                            <label for="country">Country</label>
+                            <select id="country" class="form-control" name="country">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" name="price" class="form-control">
+                        </div>
+                    </div>
+                    <div class="from-row">
+                         <div class="form-group col-md-4">
+                            <label for="image1">Property Image 1</label>
+                            <input type="file" class="form-control" id="image1" name="image1">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="image2">Property Image 2</label>
+                            <input type="file" class="form-control" id="image2" name="image2">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="image3">Property Image 3</label>
+                            <input type="file" class="form-control" id="image3" name="image1">
+                        </div>
+                    </div>
+                    <div class="from-group">
+                        <div class="form-group col-md-12">
+                            <label for="description">Description</label>
+                            <textarea type="text" class="form-control" id="description" name="description"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/app/edit.js' %}"></script>
+    <script src="{% static 'js/app/signup.js' %}"></script>
+{% endblock %}

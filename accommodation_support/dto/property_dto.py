@@ -55,6 +55,7 @@ class ListDto:
     user: user_dto.GetDto
     address: address_dto.GetDto
     images: List[str]
+    description: str
 
 
 @dataclass
@@ -64,17 +65,12 @@ class GetDto:
     type: str
     description: str
     user: user_dto.GetDto
-    number_line: int
-    street: str
-    city: str
-    state: str
-    country: str
-    postal_code: int
     status: str
     number_of_bedrooms: int
     number_of_bathrooms: int
     price: float
     images: List[str]
+    address: address_dto.GetDto
 
 
 @dataclass

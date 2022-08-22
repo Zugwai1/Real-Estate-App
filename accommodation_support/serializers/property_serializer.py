@@ -15,7 +15,7 @@ class PropertySerializer(serializers.Serializer):
     images = serializers.ListField(child=serializers.CharField(required=False))
     status = serializers.CharField()
     price = serializers.DecimalField(required=False, max_digits=60, decimal_places=10)
-    nuber_of_bedrooms = serializers.IntegerField(required=False)
+    number_of_bedrooms = serializers.IntegerField(required=False)
     number_of_bathrooms = serializers.IntegerField(required=False)
 
     def update(self, instance, validated_data):

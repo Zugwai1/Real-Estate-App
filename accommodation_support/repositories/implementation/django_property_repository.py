@@ -89,6 +89,9 @@ class DjangoPropertyRepository(PropertyRepository):
                 ),
                 price=property.price,
                 status=property.status,
+                number_of_bedrooms=property.number_of_bedrooms,
+                number_of_bathrooms=property.number_of_bathrooms,
+                description=property.description
             )
             objects.append(item)
         return objects
@@ -98,13 +101,7 @@ class DjangoPropertyRepository(PropertyRepository):
             property = Property.objects.get(id=id)
             result = GetDto(
                 id=property.id,
-                city=property.address.city,
-                street=property.address.street,
-                state=property.address.state,
-                country=property.address.country,
-                number_line=property.address.number_line,
                 type=property.type,
-                postal_code=property.address.postal_code,
                 name=property.name,
                 images=[images.image for images in property.image_set.all()],
                 description=property.description,
@@ -123,7 +120,15 @@ class DjangoPropertyRepository(PropertyRepository):
                     nationality=property.user.nationality,
                     address=property.user.address,
                     phone_number=property.user.phone_number
-                )
+                ),
+                address=address_dto.GetDto(
+                    id=property.address.id,
+                    city=property.address.city,
+                    postal_code=property.address.postal_code,
+                    street=property.address.street,
+                    state=property.address.state,
+                    country=property.address.country,
+                    number_line=property.address.number_line),
             )
             return result
         except (Exception, Property.DoesNotExist, Property.MultipleObjectsReturned) as ex:
@@ -133,7 +138,8 @@ class DjangoPropertyRepository(PropertyRepository):
     def search(self, model: SearchDto) -> List[ListDto]:
         try:
             properties = Property.objects.select_related("user", "address").filter(
-                Q(name__icontains=model.keyword) | Q(description__icontains=model.keyword) | Q(type__icontains=model.property_type) | Q(
+                Q(name__icontains=model.keyword) | Q(description__icontains=model.keyword) | Q(
+                    type__icontains=model.property_type) | Q(
                     address__state__icontains=model.location) | Q(address__city__icontains=model.location) | Q(
                     address__country__icontains=model.location) | Q(address__street__icontains=model.location) | Q(
                     number_of_bathrooms=model.number_of_bathrooms) | Q(number_of_bedrooms=model.number_of_bedrooms) | Q(
@@ -162,7 +168,8 @@ class DjangoPropertyRepository(PropertyRepository):
                     status=property.status,
                     number_of_bathrooms=property.number_of_bathrooms,
                     number_of_bedrooms=property.number_of_bedrooms,
-                    price=property.price
+                    price=property.price,
+                    description=property.description
                 )
                 objects.append(item)
             return objects
@@ -175,6 +182,40 @@ class DjangoPropertyRepository(PropertyRepository):
             return True
         except (Property.MultipleObjectsReturned, Property.DoesNotExist, Exception) as ex:
             raise ex
+
+    def get_by_user_id(self, user_id: uuid):
+        try:
+            properties = Property.objects.filter(user__id=user_id)
+            objects: List[ListDto] = []
+            for property in properties:
+                item = ListDto(
+                    id=property.id,
+                    type=property.type,
+                    address=property.address,
+                    name=property.name,
+                    images=[images.image for images in property.image_set.all()],
+                    user=user_dto.GetDto(
+                        id=property.user.id,
+                        username=property.user.username,
+                        DOB=property.user.DOB,
+                        first_name=property.user.first_name,
+                        last_name=property.user.last_name,
+                        middle_name=property.user.middle_name,
+                        email=property.user.email,
+                        nationality=property.user.nationality,
+                        address=property.user.address,
+                        phone_number=property.user.phone_number
+                    ),
+                    status=property.status,
+                    number_of_bathrooms=property.number_of_bathrooms,
+                    number_of_bedrooms=property.number_of_bedrooms,
+                    price=property.price,
+                    description=property.description
+                )
+                objects.append(item)
+            return objects
+        except Exception as ex:
+            print(ex)
 
     @staticmethod
     def __create_images(property_id: uuid.UUID, images: List[str]):

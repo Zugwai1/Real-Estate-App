@@ -39,18 +39,11 @@ class DefaultPropertyService(PropertyService):
     def search(self, model: SearchDto) -> BaseResponse | ListPropertyResponseModel:
         try:
             result = self.repository.search(model)
-            if result:
-                return ListPropertyResponseModel(
-                    status=True,
-                    message="Successful",
-                    properties=result
-                )
-            else:
-                return ListPropertyResponseModel(
-                    status=False,
-                    message="Unsuccessful",
-                    properties=[]
-                )
+            return ListPropertyResponseModel(
+                status=True,
+                message="Successful",
+                properties=result
+            )
         except (Exception,) as ex:
             return ListPropertyResponseModel(
                 status=False,
@@ -82,18 +75,11 @@ class DefaultPropertyService(PropertyService):
     def list(self) -> BaseResponse | ListPropertyResponseModel:
         try:
             result = self.repository.list()
-            if result:
-                return ListPropertyResponseModel(
-                    status=True,
-                    message="Successful",
-                    properties=result
-                )
-            else:
-                return ListPropertyResponseModel(
-                    status=True,
-                    message="Unsuccessful",
-                    properties=[]
-                )
+            return ListPropertyResponseModel(
+                status=True,
+                message="Successful",
+                properties=result
+            )
         except (Exception,):
             return BaseResponse(
                 status=False,
@@ -129,6 +115,20 @@ class DefaultPropertyService(PropertyService):
                     status=True,
                     message="Successful",
                 )
+        except (Exception,):
+            return BaseResponse(
+                status=False,
+                message="An error occurred",
+            )
+
+    def get_by_user_id(self, user_id: uuid) -> BaseResponse | ListPropertyResponseModel:
+        try:
+            result = self.repository.get_by_user_id(user_id)
+            return ListPropertyResponseModel(
+                status=True,
+                message="Successful",
+                properties=result
+            )
         except (Exception,):
             return BaseResponse(
                 status=False,

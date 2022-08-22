@@ -56,17 +56,17 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="property.html" class="nav-link">Property</a></li>
-                <li class="nav-item"><a href="agents.html" class="nav-link">Agents</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                <li class="nav-item cta"><a href="{% url "signin" %}" class="nav-link ml-lg-2"><span
+                <li class="nav-item active"><a href="{% url "index" %}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="{% url "list" %}" class="nav-link">Property</a></li>
+                <li class="nav-item"><a href="{% url 'profile' %}" class="nav-link">Profile</a></li>
+                <li class="nav-item" hidden id="menu"><a href="{% url 'workspace' %}" class="nav-link">WorkSpace</a></li>
+                <li class="nav-item cta" id="signin"><a href="{% url "signin" %}" class="nav-link ml-lg-2"><span
                         class="icon-user"></span>
                     Sign-In</a></li>
-                <li class="nav-item cta cta-colored"><a href="{% url "signup" %}" class="nav-link"><span
+                <li class="nav-item cta cta-colored" id="signup"><a href="{% url "signup" %}" class="nav-link"><span
                         class="icon-pencil"></span> Sign-Up</a></li>
+                <li class="nav-item cta cta-colored" id="signout"><a href="#" class="nav-link" onclick="logout()"><span
+                        class="icon-pencil"></span>Sign-Out</a></li>
 
             </ul>
         </div>
@@ -161,19 +161,19 @@
 <script src={% static "js/jquery-migrate-3.0.1.min.js" %}></script>
 <script src={% static "js/popper.min.js" %}></script>
 <script src={% static "js/bootstrap.min.js" %}></script>
-<script src="{% static "js/sweetalert2.min.js" %}"></script>
 <script src={% static "js/jquery.easing.1.3.js" %}></script>
 <script src={% static "js/jquery.waypoints.min.js" %}></script>
 <script src={% static "js/jquery.stellar.min.js" %}></script>
+<script src="{% static "js/sweetalert2.min.js" %}"></script>
 <script src={% static "js/owl.carousel.min.js" %}></script>
 <script src={% static "js/jquery.magnific-popup.min.js" %}></script>
 <script src={% static "js/aos.js" %}></script>
 <script src={% static "js/jquery.animateNumber.min.js" %}></script>
 <script src={% static "js/bootstrap-datepicker.js" %}></script>
-<script src={% static "js/jquery.timepicker.min.js" %}></script>
 <script src={% static "js/scrollax.min.js" %}></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src={% static "js/google-map.js" %}></script>
+<script src="{% static "js/scrollax.min.js" %}"></script>
 <script src={% static "js/main.js" %}></script>
 
 </body>

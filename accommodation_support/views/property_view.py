@@ -76,6 +76,10 @@ class PropertyView(APIView):
                 number_line=request.data["number_line"],
                 name=request.data["name"],
                 type=request.data["type"],
+                number_of_bathrooms=request.data["number_of_bathrooms"],
+                number_of_bedrooms=request.data["number_of_bathrooms"],
+                price=request.data["price"],
+                status=request.data["status"],
                 images=None
             )
             return property_request_model

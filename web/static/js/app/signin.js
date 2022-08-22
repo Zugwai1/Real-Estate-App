@@ -24,12 +24,13 @@ document.getElementById('test').addEventListener('submit', async (e) => {
         })
     if (response.status) {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
         Swal.fire({
             icon: 'success',
             title: 'Great',
             text: response.message,
         })
-        history.back();
+        window.location=document.referrer;
     } else {
         Swal.fire({
             icon: 'error',

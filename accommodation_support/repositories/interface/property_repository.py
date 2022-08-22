@@ -33,3 +33,8 @@ class PropertyRepository(metaclass=ABCMeta):
     def delete(self, id: uuid.UUID) -> bool:
         """Delete Property object"""
         raise NotImplementedError
+
+    @abstractmethod
+    def get_by_user_id(self, user_id: uuid):
+        """Get property by user ID"""
+        raise NotImplementedError

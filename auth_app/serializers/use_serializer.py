@@ -81,12 +81,27 @@ class ListUserSerializer(AppBaseSerializer):
     users = UserSerializer(many=True)
 
 
+class ResponseSerializer(serializers.Serializer):
+    id = serializers.UUIDField(required=False)
+    full_name = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)
+    username = serializers.CharField(required=False)
+    roles = serializers.ListField(required=False)
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
+
 class UserResponseSerializer(AppBaseSerializer):
     user_id = serializers.UUIDField(required=False)
 
 
 class LoginResponseSerializer(AppBaseSerializer):
     token = serializers.CharField(required=True)
+    user = ResponseSerializer(many=False)
 
 
 class LoginRequestSerializer(serializers.Serializer):
