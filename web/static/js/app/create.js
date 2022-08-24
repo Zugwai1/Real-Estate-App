@@ -39,3 +39,6 @@ document.getElementById("property-form").addEventListener("submit", (e) => {
             console.log("Error");
         })
 })
+document.addEventListener("DOMContentLoaded", () => {
+    checkRole();
+})

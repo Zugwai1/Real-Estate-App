@@ -1,6 +1,6 @@
 from django.urls import path
 from web.views.general_views import index, profile, workspace
-from web.views.property.views import list, single, create, contact, edit
+from web.views.property.views import list, single, create, contact, edit, search
 from web.views.auth_view import signin, signup
 
 urlpatterns = [
@@ -13,5 +13,6 @@ urlpatterns = [
     path("signin", signin, name="signin"),
     path("signup", signup, name="signup"),
     path("workspace", workspace, name="workspace"),
-    path('property/edit/<uuid:id>', edit, name="edit")
+    path('property/edit/<uuid:id>', edit, name="edit"),
+    path(r'^property/search/$', search, name="search"),
 ]

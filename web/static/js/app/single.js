@@ -1,41 +1,42 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    checkRole();
-    let id = document.getElementById("keep").innerText
-    let property = await fetch(`${baseUrl}api/v1/properties/${id}`, {
-        headers: {
-            'Authorization': localStorage.getItem('token'),
-        }
-    }).then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops',
-                text: response.message,
-                confirmButtonText: 'Login',
-                showConfirmButton: true,
-                timer: 50000,
-            })
-            window.location.replace("/signin");
-        }
-    }).then(data => {
-        return data.property;
-    })
-    document.getElementById("property-single").innerHTML = `
-                <div class="col-md-12">
+ let addElementForSinglePage = async () => {
+        checkRole();
+        let id = document.getElementById("keep").innerText
+        let property = await fetch(`${baseUrl}api/v1/properties/${id}`, {
+            headers: {
+                'Authorization': localStorage.getItem('token'),
+            }
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops',
+                    text: response.message,
+                    confirmButtonText: 'Login',
+                    showConfirmButton: true,
+                    timer: 50000,
+                })
+                window.location.replace("/signin");
+            }
+        }).then(data => {
+            return data.property;
+        })
+        try{
+            document.getElementById("property-single").innerHTML = `
+                <div class="col-md-12 ftco-animate">
                             <div class="single-slider owl-carousel">
                                 <div class="item">
                                     <div class="properties-img"
-                                         style="background-image: url(/web/static/images/properties-1.jpg);"></div>
+                                         style="background-image: url(${property.images[0]});"></div>
                                 </div>
                                 <div class="item">
                                     <div class="properties-img"
-                                         style="background-image: url(/web/static/images/properties-2.jpg);"></div>
+                                         style="background-image: url(${property.images[1]});"></div>
                                 </div>
                                 <div class="item">
                                     <div class="properties-img"
-                                         style="background-image: url(/web/static/images/properties-3.jpg);"></div>
+                                         style="background-image: url(${property.images[2]});"></div>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <p>${property.description}</p>
                             <div class="d-md-flex mt-5 mb-5">
                                 <ul>
-                                    <li><span>Price: </span>${property.price}</li>
+                                    <li><span>Price: </span>€${Number(property.price).toFixed(2)}</li>
                                     <li><span>Bed Rooms: </span> ${property.number_of_bedrooms}</li>
                                     <li><span>Bath Rooms: </span> ${property.number_of_bathrooms}</li>
                                     <li><span>Status: </span>${property.status}</li>
@@ -71,8 +72,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 </figure>
                             </div>
                         </div>
-                        <div class="container">
                         <a href="${baseUrl}property/contact/${property.id}" class="btn btn-primary">I am Intrested!</a>
-</div>
             `;
-})
+        }catch (e) {
+            console.log(`${e}, occurred in file`)
+        }
+    }

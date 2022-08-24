@@ -12,14 +12,15 @@
                     <h2 class="heading h5 d-flex align-items-center pr-4"><span class="ion-ios-search mr-3"></span>
                         Search
                         Property</h2>
-                    <form action="#" class="search-property">
+                    <form class="search-property" action="{% url 'search' %}" method="get">
                         <div class="row">
                             <div class="col-md align-items-end">
                                 <div class="form-group">
                                     <label for="#">Keyword</label>
                                     <div class="form-field">
                                         <div class="icon"><span class="icon-pencil"></span></div>
-                                        <input type="text" class="form-control" placeholder="Keyword">
+                                        <input type="text" class="form-control" placeholder="Keyword" name="keyword"
+                                               id="keyword">
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +29,8 @@
                                     <label for="#">Location</label>
                                     <div class="form-field">
                                         <div class="icon"><span class="icon-pencil"></span></div>
-                                        <input type="text" class="form-control" placeholder="City/Locality Name">
+                                        <input type="text" class="form-control" placeholder="City/Locality Name"
+                                               name="location" id="location">
                                     </div>
                                 </div>
                             </div>
@@ -38,14 +40,9 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">Type</option>
-                                                <option value="">Commercial</option>
-                                                <option value="">- Office</option>
-                                                <option value="">Residential</option>
-                                                <option value="">Villa</option>
-                                                <option value="">Condominium</option>
-                                                <option value="">Apartment</option>
+                                            <select name="type" class="form-control" id="type">
+                                                <option value="">Rent</option>
+                                                <option value="">Sales</option>
                                             </select>
                                         </div>
                                     </div>
@@ -57,27 +54,9 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">Type</option>
-                                                <option value="">Rent</option>
-                                                <option value="">Sale</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md align-items-end">
-                                <div class="form-group">
-                                    <label for="#">Agents</label>
-                                    <div class="form-field">
-                                        <div class="select-wrap">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">Any</option>
-                                                <option value="">Jonh Doe</option>
-                                                <option value="">Doe Mags</option>
-                                                <option value="">Kenny Scott</option>
-                                                <option value="">Emily Storm</option>
+                                            <select name="status" class="form-control" id="status">
+                                                <option value="">Available</option>
+                                                <option value="">Not Available</option>
                                             </select>
                                         </div>
                                     </div>
@@ -92,13 +71,8 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">1</option>
-                                                <option value="">2</option>
-                                                <option value="">3</option>
-                                                <option value="">4</option>
-                                                <option value="">5</option>
-                                            </select>
+                                            <input type="number" class="form-control" name="number_of_bedrooms"
+                                                   id="number_of_bedrooms" value="0">
                                         </div>
                                     </div>
                                 </div>
@@ -109,13 +83,8 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">1</option>
-                                                <option value="">2</option>
-                                                <option value="">3</option>
-                                                <option value="">4</option>
-                                                <option value="">5</option>
-                                            </select>
+                                            <input type="number" class="form-control" name="number_of_bathrooms"
+                                                   id="number_of_bathrooms" value="0">
                                         </div>
                                     </div>
                                 </div>
@@ -126,32 +95,15 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">Min Price</option>
-                                                <option value="">$1,000</option>
-                                                <option value="">$5,000</option>
-                                                <option value="">$10,000</option>
-                                                <option value="">$50,000</option>
-                                                <option value="">$100,000</option>
-                                                <option value="">$200,000</option>
-                                                <option value="">$300,000</option>
-                                                <option value="">$400,000</option>
-                                                <option value="">$500,000</option>
-                                                <option value="">$600,000</option>
-                                                <option value="">$700,000</option>
-                                                <option value="">$800,000</option>
-                                                <option value="">$900,000</option>
-                                                <option value="">$1,000,000</option>
-                                            </select>
+                                            <input type="number" class="form-control" name="price" id="price">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md align-self-end">
                                 <div class="form-group">
-                                    <div class="form-field">
-                                        <input type="submit" value="Search" class="form-control btn btn-primary">
-                                    </div>
+                                    <button type="submit" class="form-control btn btn-primary" id="search">Search
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -223,26 +175,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="properties-slider owl-carousel ftco-animate" id="property-list">
+                    <div class="properties-slider owl-carousel ftco-animate" id="properties">
 
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-section bg-light">
-        <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Special Offers</span>
-                    <h2 class="mb-4">Most Recommended Properties</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row" id="property-recom-list">
-
             </div>
         </div>
     </section>
@@ -295,7 +231,6 @@
             </div>
         </div>
     </section>
-
 
     <section class="ftco-section testimony-section bg-light">
         <div class="container">
@@ -402,107 +337,4 @@
         </div>
     </section>
 
-
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Read Articles</span>
-                    <h2>Recent Blog</h2>
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div class="col-md-3 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20"
-                           style="background-image: url({% static 'images/image_1.jpg' %});">
-                        </a>
-                        <div class="text mt-3 d-block">
-                            <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the
-                                blind texts</a></h3>
-                            <div class="meta mb-3">
-                                <div><a href="#">Dec 6, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20"
-                           style="background-image: url({% static 'images/image_2.jpg' %});">
-                        </a>
-                        <div class="text mt-3">
-                            <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the
-                                blind texts</a></h3>
-                            <div class="meta mb-3">
-                                <div><a href="#">Dec 6, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20"
-                           style="background-image: url({% static 'images/image_3.jpg' %});">
-                        </a>
-                        <div class="text mt-3">
-                            <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the
-                                blind texts</a></h3>
-                            <div class="meta mb-3">
-                                <div><a href="#">Dec 6, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20"
-                           style="background-image: url({% static 'images/image_4.jpg' %});">
-                        </a>
-                        <div class="text mt-3">
-                            <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the
-                                blind texts</a></h3>
-                            <div class="meta mb-3">
-                                <div><a href="#">Dec 6, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-section-parallax">
-        <div class="parallax-img d-flex align-items-center">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                        <h2>Subcribe to our Newsletter</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                            there
-                            live the blind texts. Separated they live in</p>
-                        <div class="row d-flex justify-content-center mt-5">
-                            <div class="col-md-8">
-                                <form action="#" class="subscribe-form">
-                                    <div class="form-group d-flex">
-                                        <input type="text" class="form-control" placeholder="Enter email address">
-                                        <input type="submit" value="Subscribe" class="submit px-3">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <script src={% static "js/app/index.js" %}></script>
 {% endblock %}

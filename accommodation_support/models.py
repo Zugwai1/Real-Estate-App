@@ -10,7 +10,7 @@ class Property(BaseModel):
     address = models.OneToOneField(Address, on_delete=models.RESTRICT, blank=False, null=False)
     description = models.TextField(null=True)
     status = models.CharField(max_length=100, null=True)
-    price = models.DecimalField(max_digits=60, decimal_places=10, null=True)
+    price = models.DecimalField(max_digits=65, decimal_places=2, null=True)
     number_of_bedrooms = models.IntegerField(null=True)
     number_of_bathrooms = models.IntegerField(null=True)
 
@@ -20,7 +20,7 @@ class Property(BaseModel):
 
 class Image(BaseModel):
     property = models.ForeignKey(to="Property", on_delete=models.CASCADE)
-    image = models.FilePathField()
+    image = models.TextField(null=True)
 
 
 class Review(BaseModel):

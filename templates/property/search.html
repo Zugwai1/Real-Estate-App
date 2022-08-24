@@ -7,7 +7,7 @@
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
                     <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'index' %}">Home</a></span>
-                        <span>Property</span>
+                        <span>Search Property</span>
                     </p>
                     <h1 class="mb-3 bread">Property</h1>
                 </div>
@@ -21,7 +21,7 @@
                 <div class="col-md-12 search-wrap">
                     <h2 class="heading h5 d-flex align-items-center pr-4"><span class="ion-ios-search mr-3"></span>
                         Search Property</h2>
-                    <form class="search-property" action="{% url 'search' %}" method="get">
+                     <form class="search-property" action="{% url 'search' %}" method="get">
                         <div class="row">
                             <div class="col-md align-items-end">
                                 <div class="form-group">
@@ -29,7 +29,7 @@
                                     <div class="form-field">
                                         <div class="icon"><span class="icon-pencil"></span></div>
                                         <input type="text" class="form-control" placeholder="Keyword" name="keyword"
-                                               id="keyword">
+                                               id="keyword" value="{{ keyword }}">
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                     <div class="form-field">
                                         <div class="icon"><span class="icon-pencil"></span></div>
                                         <input type="text" class="form-control" placeholder="City/Locality Name"
-                                               name="location" id="location">
+                                               name="location" id="location" value="{{ location }}">
                                     </div>
                                 </div>
                             </div>
@@ -49,9 +49,9 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="type" id="" class="form-control" id="type">
-                                                <option value="">Rent</option>
-                                                <option value="">Sales</option>
+                                            <select name="type" class="form-control" id="type">
+                                                <option value="Rent">Rent</option>
+                                                <option value="Sales">Sales</option>
                                             </select>
                                         </div>
                                     </div>
@@ -63,9 +63,9 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="status" id="" class="form-control" id="status">
-                                                <option value="">Available</option>
-                                                <option value="">Not Available</option>
+                                            <select name="status" class="form-control" id="status">
+                                                <option value="Available">Available</option>
+                                                <option value="Not Available">Not Available</option>
                                             </select>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                             <input type="number" class="form-control" name="number_of_bedrooms"
-                                                   id="number_of_bedrooms">
+                                                   id="number_of_bedrooms" value="{{ number_of_bedrooms }}">
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                             <input type="number" class="form-control" name="number_of_bathrooms"
-                                                   id="number_of_bathrooms">
+                                                   id="number_of_bathrooms" value="{{ number_of_bathrooms }}">
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <input type="number" class="form-control" name="price" id="price">
+                                            <input type="number" class="form-control" name="price" id="price" value="{{ price }}">
                                         </div>
                                     </div>
                                 </div>
@@ -170,4 +170,5 @@
         </div>
     </section>
 
+    <script src={% static "js/app/property-search.js" %}></script>
 {% endblock %}

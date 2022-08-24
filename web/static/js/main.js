@@ -1,14 +1,19 @@
 const baseUrl = "http://127.0.0.1:8000/";
 
+
 let checkRole = function () {
     let user = JSON.parse(localStorage.getItem('user'));
-    if(user === null ){
-       document.getElementById('signout').hidden = true
-    }
-    else if (user.roles[0] === 'PropertyOwner') {
+    if (user === null) {
+        document.getElementById('signout').hidden = true
+    } else if (user.roles[0] === 'PropertyOwner') {
         document.getElementById('menu').removeAttribute("hidden")
         document.getElementById('signin').hidden = true
         document.getElementById('signup').hidden = true
+        document.getElementById("profile").hidden = false
+    } else if (user.roles[0] === 'User') {
+        document.getElementById('signin').hidden = true
+        document.getElementById('signup').hidden = true
+        document.getElementById("profile").hidden = false
     }
 }
 
@@ -22,9 +27,35 @@ AOS.init({
     easing: 'slide'
 });
 
-(function ($) {
+
+(async function ($) {
 
     "use strict";
+    try {
+        // Add Properties in index
+        await addPropertiesForIndexPage();
+    } catch (e) {
+        console.log(`${e}`)
+    }
+    try {
+        // Add element for single page
+        await addElementForSinglePage();
+    } catch (e) {
+        console.log(`${e}`)
+    }
+    try {
+        // And properties in list
+        await addListOfProperties();
+    } catch (e) {
+        console.log(`${e}`)
+    }
+    try {
+        // And property search
+        await searchProperty();
+    } catch (e) {
+        console.log(`${e}`)
+    }
+
 
     var isMobile = {
         Android: function () {
@@ -387,4 +418,5 @@ AOS.init({
 
 
 })(jQuery);
+
 

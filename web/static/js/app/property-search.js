@@ -1,12 +1,27 @@
-let addListOfProperties = async () => {
+let searchProperty = async (e) => {
     checkRole();
-    let properties = await fetch(`${baseUrl}api/v1/properties/`)
-        .then(response => response.json())
-        .then(data => {
-            return data.properties
-        }).catch(e => {
-            console.log(e)
-        })
+    e.preventDefault();
+    let info = JSON.stringify({
+        'price': document.getElementById("price").value,
+        'location': document.getElementById("location").value,
+        'keyword': document.getElementById("keyword").value,
+        'number_of_bedrooms': document.getElementById("number_of_bedrooms").value,
+        'number_of_bathrooms': document.getElementById("number_of_bathrooms").value,
+        'type': document.getElementById("type").value,
+        'status': document.getElementById("status").value
+    })
+    let properties = await fetch(`${baseUrl}api/v1/properties/search`, {
+        method: 'POST',
+        body: info,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+        }
+    }).then(response => {
+        return response.json()
+    }).then(data => {
+        return data.properties
+    })
     let innerHtml = ``
     properties.forEach(prop => {
         let url = `http://127.0.0.1:8000/property/single/${prop.id}`
@@ -43,4 +58,4 @@ let addListOfProperties = async () => {
         </div>`
     })
     document.getElementById("property-list").innerHTML = innerHtml;
-};
+}

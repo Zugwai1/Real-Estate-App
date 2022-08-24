@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    checkRole();
     let id = JSON.parse(localStorage.getItem('user')).id
     console.log(id);
     let user = await fetch(`${baseUrl}api/v1/users/${id}`, {
@@ -24,5 +23,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("city").value = user.address.city;
     document.getElementById("postal_code").value = user.address.postal_code;
     document.getElementById("number_line").value = user.address.number_line;
-    document.getElementById("phone_number").value = user.number_line;
+    document.getElementById("phone_number").value = user.phone_number;
 })

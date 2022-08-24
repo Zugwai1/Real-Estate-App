@@ -23,3 +23,13 @@ def contact(request, id: uuid):
 
 def edit(request, id: uuid):
     return render(request, 'property/edit.html', {"property_id": id})
+
+
+def search(request):
+    return render(request, 'property/search.html', {
+        'price': request.GET.get('price', 0),
+        'location': request.GET.get('location', ""),
+        'keyword': request.GET.get('keyword', 0),
+        'number_of_bedrooms': request.GET.get('number_of_bedrooms', 0),
+        'number_of_bathrooms': request.GET.get('number_of_bathrooms', 0),
+    })
