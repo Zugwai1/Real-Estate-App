@@ -1,6 +1,6 @@
 import logging
 import uuid
-from typing import List
+from typing import List, Tuple
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
@@ -12,18 +12,26 @@ from auth_app.repositories.inteface.user_repository import UserRepository
 
 
 class DjangoORMUserRepository(UserRepository):
-    def authenticate(self, username: str, password: str) -> Login | None:
+    def authenticate(self, username: str, password: str) -> Tuple[bool, Login] | None:
         try:
             user = User.objects.get(username=username)
             if not user or not check_password(password=password, encoded=user.password):
                 return None
-            return Login(
+            if not user.is_active:
+                return (False, Login(
+                    id=str(user.id),
+                    full_name=f"{user.last_name} {user.first_name} {user.middle_name}",
+                    email=user.email,
+                    roles=[group.name for group in user.groups.all()],
+                    username=user.username
+                ))
+            return (True, Login(
                 id=str(user.id),
                 full_name=f"{user.last_name} {user.first_name} {user.middle_name}",
                 email=user.email,
                 roles=[group.name for group in user.groups.all()],
                 username=user.username
-            )
+            ))
         except (ObjectDoesNotExist, MultipleObjectsReturned, Exception) as ex:
             logging.error(f"{ex} ,occurred while getting user")
             raise ex
@@ -55,6 +63,7 @@ class DjangoORMUserRepository(UserRepository):
             user.address.number_line = user_dto.number_line
             user.address.street = user_dto.street
             user.address.save()
+            user.is_active = False
 
             user.address_id = user.address.id
             user.save()

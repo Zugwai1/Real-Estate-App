@@ -86,8 +86,8 @@ document.getElementById('registration-form').addEventListener('submit', async (e
             Swal.fire({
                 icon: 'success',
                 title: 'Great',
-                text: 'Sign Up Successful!',
-                footer: '<a href="http://127.0.0.1:8000/signin" class="btn btn-primary">Login</a>'
+                text: 'Sign Up Successful!, Check Your Mail To Activate your account',
+                footer: `<a href="${baseUrl}/signin" class="btn btn-primary">Login</a>`
             })
         } else {
             Swal.fire({

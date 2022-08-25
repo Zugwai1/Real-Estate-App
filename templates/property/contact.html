@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
-                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Contact</span>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'index' %}">Home</a></span> <span>Contact</span>
                     </p>
                     <h1 class="mb-3 bread">Contact Us</h1>
                 </div>
@@ -23,18 +23,18 @@
                 <div class="col-md-6 order-md-last d-flex">
                     <form class="bg-white p-5 contact-form" id="contact-form">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Name" name="name">
+                            <input type="text" class="form-control" placeholder="Your Name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Email" name="sender">
+                            <input type="text" class="form-control" placeholder="Your Email" name="sender" required>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Subject"
-                                   value="Application for Interest in Property" name="subject">
+                                   value="Application for Interest in Property" name="subject" required>
                         </div>
                         <div class="form-group">
                             <textarea name="message" id="" cols="30" rows="7" class="form-control"
-                                      placeholder="Message"></textarea>
+                                      placeholder="Message" required></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary py-3 px-5">Send Message</button>

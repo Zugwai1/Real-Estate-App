@@ -21,7 +21,7 @@ let addPropertiesForIndexPage = async () => {
                             ${property.address.city}, ${property.address.state}, ${property.address.country}</span>
                         <p>${property.description}</p>
                         <span class="price">€${Number(property.price).toFixed(2)}</span>
-                        <a href="${baseUrl}api/v1/properties/${property.id}" class="btn-custom p-3 px-4 bg-primary">View Details <span
+                        <a href="${baseUrl}property/single/${property.id}" class="btn-custom p-3 px-4 bg-primary">View Details <span
                                 class="icon-plus ml-1"></span></a>
                     </div>
                 </div>
@@ -34,7 +34,7 @@ let addPropertiesForIndexPage = async () => {
         properties.forEach(property => {
             innerListHtml += `<div class="item">
                             <div class="properties">
-                                <a href="${baseUrl}api/v1/properties/${property.id}" class="img d-flex justify-content-center align-items-center"
+                                <a href="${baseUrl}property/single/${property.id}" class="img d-flex justify-content-center align-items-center"
                                    style="background-image: url(${property.images[0]});">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="icon-search2"></span>

@@ -16,7 +16,7 @@ class DefaultUserService(UserService):
     def __init__(self, repository: UserRepository):
         self.repository = repository
 
-    def create(self, user_dto: CreateDto) -> BaseResponse:
+    def create(self, user_dto: CreateDto) -> CreateUserResponseModel:
         try:
             exists = self.repository.check_if_exist(email=user_dto.email)
             if not exists:
@@ -48,7 +48,7 @@ class DefaultUserService(UserService):
             message="Successful"
         )
 
-    def get(self, id: uuid.UUID = None, email: str = None) -> BaseResponse:
+    def get(self, id: uuid.UUID = None, email: str = None) -> BaseResponse | GetUserResponseModel:
         try:
             user = None
             if id is not None:

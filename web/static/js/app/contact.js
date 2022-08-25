@@ -29,15 +29,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="w-100"></div>
                 <div class="col-md-3 d-flex">
                     <div class="info bg-white p-4">
-                        <p><span>Address:</span> ${property.user.address.number_line}, ${property.user.address.street}, ${property.user.address.city}, ${property.user.address.state}, ${property.user.address.country}</p>
+                        <p><span>Property Info:</span> A ${property.name}, of ${property.type} Type located at {property.address.number_line}, ${property.address.street},
+                            ${property.address.city}, ${property.address.state}, ${property.address.country}</span>
+                        <p>${property.description}</p>
                     </div>
                 </div>
                 <div class="col-md-3 d-flex">
                     <div class="info bg-white p-4">
-                        <p><span>Phone:</span> <a href="tel://1234567920">${property.user.phone_number}</a></p>
+                        <p><span>Property Owner Info:</span> Name: ${property.user.last_name} ${property.user.first_name} ${property.user.middle_name}${property.user.phone_number}<br>
+                        Phone Number ${property.user.phone_number} <br> ${property.user.email}</p>
                     </div>
                 </div>
-                <div class="col-md-3 d-flex">
+                <div class="col-md-3 d-flex" hidden>
                     <div class="info bg-white p-4">
                         <p><span>Email:</span> <a href="mailto:info@yoursite.com"><p id="receiver">${property.user.email}</p></a></p>
                     </div>

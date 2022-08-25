@@ -9,6 +9,7 @@ class MailModel:
     sender: str
     receiver: str
     subject: str
+    others: str | None
 
 
 @dataclasses.dataclass

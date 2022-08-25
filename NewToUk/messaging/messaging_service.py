@@ -18,9 +18,9 @@ class MessageService:
     def __init__(self):
         self.configuration.api_key['api-key'] = os.getenv("API_KEY")
 
-    def send_mail(self, model: MailModel):
+    def send_mail(self, model: MailModel, html_file: str):
         api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(self.configuration))
-        html_content = render_to_string("mail.html", context={"model": model})
+        html_content = render_to_string(html_file, context={"model": model})
         send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
             sender=SendSmtpEmailSender(name=model.name, email=model.sender),
             to=[SendSmtpEmailTo(name="Man", email=model.receiver)],

@@ -1,7 +1,7 @@
 from django.urls import path
 from web.views.general_views import index, profile, workspace
 from web.views.property.views import list, single, create, contact, edit, search
-from web.views.auth_view import signin, signup
+from web.views.auth_view import signin, signup, activate_user
 
 urlpatterns = [
     path("", index, name="index"),
@@ -15,4 +15,5 @@ urlpatterns = [
     path("workspace", workspace, name="workspace"),
     path('property/edit/<uuid:id>', edit, name="edit"),
     path(r'^property/search/$', search, name="search"),
+    path('activate/<str:uid>/<str:token>', activate_user, name="activate")
 ]

@@ -13,7 +13,9 @@ document.getElementById('test').addEventListener('submit', async (e) => {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json())
+        .then(response => {
+            return response.json();
+        })
         .then(val => {
             return val
         })
@@ -30,12 +32,17 @@ document.getElementById('test').addEventListener('submit', async (e) => {
             title: 'Great',
             text: response.message,
         })
-        window.location=document.referrer;
-    } else {
+        if (document.referrer.includes("signup") || document.referrer.includes("activate")) {
+            window.location.replace("/")
+        }
+        window.location = document.referrer;
+    }
+    else {
         Swal.fire({
-            icon: 'error',
+            icon: 'info',
             title: 'Oops',
             text: response.message,
+            showCancelButton: true,
         })
     }
 })

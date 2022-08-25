@@ -1,11 +1,21 @@
+import os
+import uuid
+
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from NewToUk.messaging.messaging_service import MessageService
 from NewToUk.shared.models.base_response import BaseResponse
 from NewToUk.shared.models.base_serializer import AppBaseSerializer
+from NewToUk.shared.models.message_dto import MailModel
+from auth_app.auth.token_generator import account_activation_token
 from auth_app.dto.user_dto import CreateUserRequestModel
+from auth_app.models import User
 from auth_app.providers import auth_providers
 from auth_app.dto.user_dto import CreateDto
 from auth_app.views.view_decorators import is_authenticated, authorize
@@ -52,7 +62,9 @@ class UserView(APIView):
             number_line=model.number_line,
             street=model.street
         )
-        response = UserResponseSerializer(auth_providers.user_service().create(user_dto)).data
+        result = auth_providers.user_service().create(user_dto)
+        self.__send_activation_mail(user_id=result.user_id)
+        response = UserResponseSerializer(result).data
         return Response(data=response,
                         status=status.HTTP_200_OK if response["status"] else status.HTTP_400_BAD_REQUEST)
 
@@ -83,3 +95,22 @@ class UserView(APIView):
                 status=False,
                 message=f"Fill data for {ex}"
             )
+
+    @staticmethod
+    def __send_activation_mail(user_id: uuid):
+        try:
+            result = User.objects.get(pk=user_id)
+            uid = urlsafe_base64_encode(force_bytes(result.pk))
+            token = account_activation_token.make_token(result)
+            model = MailModel(
+                message=f"Welcome To NewToUkApp {result.last_name} {result.middle_name} {result.last_name}",
+                others=f'{os.getenv("APP_BASE_URL")}activate/{uid}/{token}',
+                sender="support@newtouk.com",
+                receiver=result.email,
+                subject="Activation Mail",
+                email="",
+                name="New To Uk Support"
+            )
+            return MessageService().send_mail(model, "activation_mail.html")
+        except Exception as e:
+            ...

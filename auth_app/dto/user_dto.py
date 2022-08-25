@@ -100,7 +100,7 @@ class EditUserResponseModel(BaseResponse):
 @dataclass
 class LoginResponseModel(BaseResponse):
     token: str
-    user: Login
+    user: Login | None
 
 
 # Request Models

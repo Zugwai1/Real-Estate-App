@@ -1,4 +1,5 @@
 import dataclasses
+import uuid
 
 from NewToUk.shared.models.message_dto import MailModel
 

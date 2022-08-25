@@ -1,3 +1,4 @@
+import os
 from uuid import UUID
 
 from drf_yasg import openapi
@@ -26,7 +27,7 @@ class PropertyMailView(APIView):
     @is_authenticated
     def post(self, request):
         model = self.__set_attribute(request)
-        result = MessageService().send_mail(model)
+        result = MessageService().send_mail(model, "property_mail.html")
         data = AppBaseSerializer(result).data
         if result.status:
             return Response(data=data, status=status.HTTP_200_OK)
@@ -41,7 +42,8 @@ class PropertyMailView(APIView):
             email=user["email"],
             receiver=request.data.get("receiver", ""),
             sender=user["email"],
-            subject=request.data.get("subject", "Contact Mail")
+            subject=request.data.get("subject", "Contact Mail"),
+            others=f'{os.getenv("APP_BASE_URL")}property/single/{request.data.get("property_id", "")}'
         )
 
     @staticmethod

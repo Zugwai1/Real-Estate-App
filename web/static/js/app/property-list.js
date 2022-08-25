@@ -21,11 +21,43 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 <td>${property.type}</td>
                                 <td>${property.status}</td>
                                 <td><div class="btn-group">
+                                <p hidden id="property-id">${property.id}</p>
                                 <a class="btn btn-success" href="${baseUrl}property/single/${property.id}">View</a>
                                 <a class="btn btn-warning" href="${baseUrl}property/edit/${property.id}">Edit</a>
+                                <button class="btn btn-danger" id="delete-btn">Delete</button>
 </div></td>
                             </tr>`
         count++;
     })
     document.getElementById("table-body").innerHTML = innerHtml;
+})
+
+document.getElementById("delete-btn").addEventListener("click", async () => {
+    let property_id = document.getElementById("property-id").innerText;
+    await fetch(`${baseUrl}api/v1/properties/${property_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': localStorage.getItem('token'),
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === true) {
+                Swal.fire({
+                    icon: 'success',
+                    title: data.message,
+                    confirmButtonText: 'Ok',
+                    showConfirmButton: true,
+                    timer: 50000,
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: data.message,
+                    confirmButtonText: 'Ok',
+                    showConfirmButton: true,
+                    timer: 50000,
+                })
+            }
+        })
 })
