@@ -82,15 +82,15 @@ DATABASES = {
     'default': {
         'ENGINE': os.getenv("ENGINE"),
         'NAME': os.getenv("NAME"),
-        "HOST": os.getenv("HOST"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "USER": os.getenv("USER"),
-        "PORT": os.getenv("PORT")
+        # "HOST": os.getenv("HOST"),
+        # "PASSWORD": os.getenv("PASSWORD"),
+        # "USER": os.getenv("USER"),
+        # "PORT": os.getenv("PORT")
     }
 }
 
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation

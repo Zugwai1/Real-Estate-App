@@ -55,7 +55,7 @@ document.getElementById('registration-form').addEventListener('submit', async (e
         validatePassword(document.getElementById('password'), document.getElementById('confirm_password')) ? [true, "Password validated"] : [false, "Password dose not match"]
     let data = new FormData(e.target)
     if (isValid[0] && isPasswordValid[0]) {
-        let response = await fetch('http://127.0.0.1:8000/api/v1/users/', {
+        let response = await fetch(`${baseUrl}api/v1/users/`, {
             method: 'POST', body: JSON.stringify({
                 'first_name': data.get('first_name'),
                 'middle_name': data.get('middle_name'),

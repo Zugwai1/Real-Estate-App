@@ -9,7 +9,7 @@ let addListOfProperties = async () => {
         })
     let innerHtml = ``
     properties.forEach(prop => {
-        let url = `http://127.0.0.1:8000/property/single/${prop.id}`
+        let url = `${baseUrl}property/single/${prop.id}`
         console.log(url);
         innerHtml += `
         <div class="col-md-4">

@@ -1,7 +1,7 @@
 document.getElementById('test').addEventListener('submit', async (e) => {
     e.preventDefault();
     let data = new FormData(e.target);
-    let response = await fetch("http://127.0.0.1:8000/api/v1/auth/token", {
+    let response = await fetch(`${baseUrl}api/v1/auth/token`, {
         method: 'POST',
         body: JSON.stringify(
             {
