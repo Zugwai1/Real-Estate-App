@@ -13,6 +13,7 @@ class Property(BaseModel):
     price = models.DecimalField(max_digits=65, decimal_places=2, null=True)
     number_of_bedrooms = models.IntegerField(null=True)
     number_of_bathrooms = models.IntegerField(null=True)
+    property_video_url = models.CharField(null=True, max_length=10000)
 
     def __str__(self):
         return f"Name: {self.name}, Type: {self.type}, Description: {self.description}"

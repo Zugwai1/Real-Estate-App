@@ -17,6 +17,7 @@ class PropertySerializer(serializers.Serializer):
     price = serializers.DecimalField(required=False, max_digits=60, decimal_places=10)
     number_of_bedrooms = serializers.IntegerField(required=False)
     number_of_bathrooms = serializers.IntegerField(required=False)
+    property_video_url = serializers.CharField(required=False)
 
     def update(self, instance, validated_data):
         pass
@@ -40,6 +41,7 @@ class CreatePropertySerializer(serializers.Serializer):
     price = serializers.DecimalField(required=False, max_digits=60, decimal_places=10)
     nuber_of_bedrooms = serializers.IntegerField(required=False)
     number_of_bathrooms = serializers.IntegerField(required=False)
+    property_video_url = serializers.CharField(required=False)
 
     def update(self, instance, validated_data):
         pass
@@ -58,11 +60,11 @@ class EditPropertySerializer(serializers.Serializer):
     state = serializers.CharField(required=False)
     country = serializers.CharField(required=False)
     postal_code = serializers.IntegerField(required=False)
-    image1 = serializers.FileField(required=False)
     status = serializers.CharField()
     price = serializers.DecimalField(required=False, max_digits=60, decimal_places=10)
     nuber_of_bedrooms = serializers.IntegerField(required=False)
     number_of_bathrooms = serializers.IntegerField(required=False)
+    property_video_url = serializers.CharField(required=False)
 
     def update(self, instance, validated_data):
         pass

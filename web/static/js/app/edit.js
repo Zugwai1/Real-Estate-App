@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
     document.getElementById("name").value = property.name;
     document.getElementById("type").value = property.type;
-    document.getElementById("price").value = property.price;
+    document.getElementById("price").value = Number(property.price).toFixed(2);
     document.getElementById("country").value = property.address.country;
     document.getElementById("number_of_bedrooms").value = property.number_of_bedrooms;
     document.getElementById("number_of_bathrooms").value = property.number_of_bathrooms;
@@ -35,16 +35,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("city").value = property.address.city;
     document.getElementById("description").value = property.description;
     document.getElementById("state").value = property.address.state;
+    document.getElementById("video_link").value = property.property_video_url;
 })
 
 document.getElementById("property-form").addEventListener("submit", (e) => {
     e.preventDefault();
     let data = new FormData(e.target);
-    let input = document.querySelector('input[type="file"]')
     let id = document.getElementById("keep").innerText
-    data.append("input1", input.files[0])
-    data.append("inout2", input.files[1])
-    data.append("inout3", input.files[1])
     fetch(`${baseUrl}api/v1/properties/${id}`, {
         method: 'PUT',
         body: data,
@@ -65,6 +62,7 @@ document.getElementById("property-form").addEventListener("submit", (e) => {
                 showConfirmButton: true,
                 timer: 50000,
             })
+            window.location.replace("/workspace")
         } else {
             Swal.fire({
                 icon: 'error',

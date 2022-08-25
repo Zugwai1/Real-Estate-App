@@ -47,7 +47,6 @@ class PropertyDetailView(APIView):
         if isinstance(request_data, BaseResponse):
             data = AppBaseSerializer(request_data).data
             return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
-        request_data.images = list(map(FileStorage().save, self.file_storage.get_files(request, "image")))
         response = accommodation_app_provider.property_service().edit(id=pk, model=EditDto(
             description=request_data.description,
             postal_code=request_data.postal_code,
@@ -58,11 +57,11 @@ class PropertyDetailView(APIView):
             number_line=request_data.number_line,
             name=request_data.name,
             type=request_data.type,
-            images=request_data.images,
             number_of_bathrooms=request_data.number_of_bathrooms,
             number_of_bedrooms=request_data.number_of_bedrooms,
             status=request_data.status,
             price=request_data.price,
+            property_video_url=request_data.property_video_url
         ))
         if response.status:
             return Response(data=response.__dict__, status=status.HTTP_200_OK)
@@ -98,7 +97,8 @@ class PropertyDetailView(APIView):
                 number_of_bedrooms=request.data["number_of_bedrooms"],
                 status=request.data["status"],
                 price=request.data["price"],
-                images=None
+                images=None,
+                property_video_url=request.data["video_url"]
             )
             return property_request_model
         except KeyError as ex:

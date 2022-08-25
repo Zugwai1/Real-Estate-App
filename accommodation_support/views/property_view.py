@@ -57,7 +57,8 @@ class PropertyView(APIView):
             number_of_bathrooms=request_data.number_of_bathrooms,
             number_of_bedrooms=request_data.number_of_bathrooms,
             price=request_data.price,
-            status=request_data.status
+            status=request_data.status,
+            property_video_url=request_data.property_video_url
         ))
         if response.status:
             return Response(data=response.__dict__, status=status.HTTP_200_OK)
@@ -80,7 +81,8 @@ class PropertyView(APIView):
                 number_of_bedrooms=request.data["number_of_bathrooms"],
                 price=request.data["price"],
                 status=request.data["status"],
-                images=None
+                images=None,
+                property_video_url=request.data["video_link"]
             )
             return property_request_model
         except KeyError as ex:

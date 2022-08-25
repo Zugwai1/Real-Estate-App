@@ -25,6 +25,7 @@ document.getElementById("property-form").addEventListener("submit", (e) => {
                 showConfirmButton: true,
                 timer: 50000,
             })
+            window.location.replace("/workspace");
         } else {
             Swal.fire({
                 icon: 'error',

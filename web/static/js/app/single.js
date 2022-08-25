@@ -66,8 +66,8 @@
                             <h3 class="mb-4">Take A Tour</h3>
                             <div class="block-16">
                                 <figure>
-                                    <img src="images/properties-6.jpg" alt="Image placeholder" class="img-fluid">
-                                    <a href="https://vimeo.com/45830194" class="play-button popup-vimeo"><span
+                                    <img src="${property.images[0]}" alt="Image placeholder" class="img-fluid">
+                                    <a href="${property.property_video_url}" class="play-button popup-vimeo"><span
                                             class="icon-play"></span></a>
                                 </figure>
                             </div>

@@ -23,6 +23,7 @@ class CreateDto:
     number_of_bathrooms: int
     price: float
     images: List[str]
+    property_video_url: str
 
 
 @dataclass
@@ -40,7 +41,7 @@ class EditDto:
     number_of_bedrooms: int
     number_of_bathrooms: int
     price: float
-    images: List[str]
+    property_video_url: str
 
 
 @dataclass
@@ -56,6 +57,7 @@ class ListDto:
     address: address_dto.GetDto
     images: List[str]
     description: str
+    property_video_url: str
 
 
 @dataclass
@@ -71,6 +73,7 @@ class GetDto:
     price: float
     images: List[str]
     address: address_dto.GetDto
+    property_video_url: str
 
 
 @dataclass
@@ -123,3 +126,4 @@ class CreatePropertyRequestModel:
     number_of_bathrooms: int
     price: float
     images: List[str] | None
+    property_video_url: str | None

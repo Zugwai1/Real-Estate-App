@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 <p hidden id="property-id">${property.id}</p>
                                 <a class="btn btn-success" href="${baseUrl}property/single/${property.id}">View</a>
                                 <a class="btn btn-warning" href="${baseUrl}property/edit/${property.id}">Edit</a>
-                                <button class="btn btn-danger" id="delete-btn">Delete</button>
+                                <button class="btn btn-danger" id="delete-btn" onclick="delete_record()">Delete</button>
 </div></td>
                             </tr>`
         count++;
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("table-body").innerHTML = innerHtml;
 })
 
-document.getElementById("delete-btn").addEventListener("click", async () => {
+let delete_record = async () => {
     let property_id = document.getElementById("property-id").innerText;
     await fetch(`${baseUrl}api/v1/properties/${property_id}`, {
         method: 'DELETE',
@@ -50,6 +50,7 @@ document.getElementById("delete-btn").addEventListener("click", async () => {
                     showConfirmButton: true,
                     timer: 50000,
                 })
+                window.location.reload();
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -60,4 +61,4 @@ document.getElementById("delete-btn").addEventListener("click", async () => {
                 })
             }
         })
-})
+}

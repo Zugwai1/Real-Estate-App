@@ -27,6 +27,7 @@ class DjangoPropertyRepository(PropertyRepository):
             property.number_of_bedrooms = model.number_of_bedrooms
             property.number_of_bathrooms = model.number_of_bathrooms
             property.status = model.status
+            property.property_video_url = model.property_video_url
             property.save()
             self.__create_images(property_id=property.id, images=model.images)
             return property.id
@@ -50,7 +51,7 @@ class DjangoPropertyRepository(PropertyRepository):
             property.number_of_bedrooms = model.number_of_bedrooms
             property.number_of_bathrooms = model.number_of_bathrooms
             property.status = model.status
-            self.__update_images(property.image_set.all(), model.images)
+            property.property_video_url = model.property_video_url
             property.address.save()
             property.save()
             return property.id
@@ -91,7 +92,8 @@ class DjangoPropertyRepository(PropertyRepository):
                 status=property.status,
                 number_of_bedrooms=property.number_of_bedrooms,
                 number_of_bathrooms=property.number_of_bathrooms,
-                description=property.description
+                description=property.description,
+                property_video_url=property.property_video_url
             )
             objects.append(item)
         return objects
@@ -129,6 +131,7 @@ class DjangoPropertyRepository(PropertyRepository):
                     state=property.address.state,
                     country=property.address.country,
                     number_line=property.address.number_line),
+                property_video_url=property.property_video_url
             )
             return result
         except (Exception, Property.DoesNotExist, Property.MultipleObjectsReturned) as ex:
@@ -169,7 +172,8 @@ class DjangoPropertyRepository(PropertyRepository):
                     number_of_bathrooms=property.number_of_bathrooms,
                     number_of_bedrooms=property.number_of_bedrooms,
                     price=property.price,
-                    description=property.description
+                    description=property.description,
+                    property_video_url=property.property_video_url
                 )
                 objects.append(item)
             return objects
@@ -210,7 +214,8 @@ class DjangoPropertyRepository(PropertyRepository):
                     number_of_bathrooms=property.number_of_bathrooms,
                     number_of_bedrooms=property.number_of_bedrooms,
                     price=property.price,
-                    description=property.description
+                    description=property.description,
+                    property_video_url=property.property_video_url
                 )
                 objects.append(item)
             return objects
