@@ -5,5 +5,6 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
+RUN echo "Package Installation done"
 RUN python3 manage.py migrate
 CMD ["python3", "manage.py", "runserver"]
