@@ -15,4 +15,5 @@ def signup(request):
 def activate_user(request, uid: str, token: str):
     response = activate(request, uid, token)
     data = response.data
-    return render(request, "auth/signin.html", {'message': data.get("message", ""), 'passed': data.get("passed", ""), 'form_activation' : True})
+    return render(request, "auth/activation.html",
+                  {'message': data.get("message", ""), 'passed': data.get("passed", "")})
