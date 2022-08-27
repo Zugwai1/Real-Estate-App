@@ -1,24 +1,19 @@
 version: '3'
 services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./NewToUk/.env
+    depends_on:
+      - db
   db:
-    image: mysql:8
+    image: mysql:5.7
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_DATABASE='newtouk'
-      - MYSQL_USER='newtouk'
-      - MYSQL_PASSWORD='P@$$w0rd'
-      - MYSQL_ROOT_PASSWORD='P@$$w0rd'
-    volumes:
-      - /tmp/app/mysqld:/var/run/mysqld
-      - ./db:/var/lib/mysql
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-      - /tmp/app/mysqld:/run/mysqld
-    depends_on:
-      - db
+      - MYSQL_DATABASE=newtouk
+      - MYSQL_USER=newtouk
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
