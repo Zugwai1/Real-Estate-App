@@ -9,7 +9,7 @@ class AddressSerializer(AppBaseSerializer):
     city = serializers.CharField(required=False)
     state = serializers.CharField(required=False)
     country = serializers.CharField(required=False)
-    postal_code = serializers.IntegerField(required=False)
+    postal_code = serializers.CharField(required=False)
 
     def update(self, instance, validated_data):
         pass

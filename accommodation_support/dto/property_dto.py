@@ -17,7 +17,7 @@ class CreateDto:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
     status: str
     number_of_bedrooms: int
     number_of_bathrooms: int
@@ -36,7 +36,7 @@ class EditDto:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
     status: str
     number_of_bedrooms: int
     number_of_bathrooms: int
@@ -120,7 +120,7 @@ class CreatePropertyRequestModel:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
     status: str
     number_of_bedrooms: int
     number_of_bathrooms: int

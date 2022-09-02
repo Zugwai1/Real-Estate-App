@@ -87,8 +87,10 @@ document.getElementById('registration-form').addEventListener('submit', async (e
                 icon: 'success',
                 title: 'Great',
                 text: 'Sign Up Successful!, Check Your Mail To Activate your account',
-                footer: `<a href="${baseUrl}/signin" class="btn btn-primary">Login</a>`
+                showConfirmButton: false,
+                 timer: 5000
             })
+            window.location.replace("/signin")
         } else {
             Swal.fire({
                 icon: 'error',

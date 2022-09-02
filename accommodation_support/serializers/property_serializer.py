@@ -59,7 +59,7 @@ class EditPropertySerializer(serializers.Serializer):
     city = serializers.CharField(required=False)
     state = serializers.CharField(required=False)
     country = serializers.CharField(required=False)
-    postal_code = serializers.IntegerField(required=False)
+    postal_code = serializers.CharField(required=False)
     status = serializers.CharField()
     price = serializers.DecimalField(required=False, max_digits=60, decimal_places=10)
     nuber_of_bedrooms = serializers.IntegerField(required=False)

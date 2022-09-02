@@ -27,8 +27,10 @@
                     icon: 'success',
                     title: 'Activated',
                     text: document.getElementById("message").innerText,
-                    showCancelButton: true,
+                    showConfirmButton: false,
+                    timer: 50000
                 })
+                window.location.replace("/")
             </script>
         {% elif not passed %}
             <script>
@@ -40,20 +42,6 @@
                 })
             </script>
         {% endif %}
-        <div class="login-form">
-            <form action="" id="test">
-                <div class="form-group">
-                    <label>User Name</label>
-                    <input type="email" class="form-control" placeholder="Email" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-black">Login</button>
-                <a href="http://127.0.0.1:8000/signup" class="btn btn-secondary">Register</a>
-            </form>
-        </div>
     </div>
 </div>
 </body>
