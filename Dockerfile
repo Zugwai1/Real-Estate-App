@@ -7,4 +7,4 @@ COPY . .
 COPY wait_for_db.sh .
 RUN pip install -r requirements.txt
 RUN echo "Package Installation done"
-CMD ["python3", "manage.py", "runserver"]
+CMD ["python3", "manage.py", "runserver" "5000"]

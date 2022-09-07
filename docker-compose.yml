@@ -3,17 +3,20 @@ services:
   db:
     restart: always
     image: mysql:5.7
-    container_name: my_db
-    env_file: ./NewToUk/.env
+    container_name: db
+    env_file: .env
+    volumes:
+      - my-datavolume:/var/lib/mysql
     ports:
       - "3306:3306"
 
   web:
     restart: always
     build: .
-    env_file: ./NewToUk/.env
-    command: ./wait_for_db.sh
+    env_file: .env
     ports:
-      - "8000:8000"
+      - "5000:5000"
     depends_on:
       - db
+volumes:
+  my-datavolume:
