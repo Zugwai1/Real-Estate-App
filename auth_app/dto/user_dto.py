@@ -22,7 +22,7 @@ class CreateDto:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
     groups: List[str]
 
 
@@ -40,7 +40,7 @@ class EditDto:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
 
 
 @dataclass
@@ -126,7 +126,7 @@ class CreateUserRequestModel:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
     groups: List[str]
 
 
@@ -144,4 +144,4 @@ class EditUserRequestModel:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str

@@ -1,4 +1,4 @@
-document.getElementById('test').addEventListener('submit', async (e) => {
+document.getElementById('signin-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     let data = new FormData(e.target);
     let response = await fetch(`${baseUrl}api/v1/auth/token`, {
@@ -32,8 +32,11 @@ document.getElementById('test').addEventListener('submit', async (e) => {
             title: 'Great',
             text: response.message,
         })
-        if (document.referrer.includes("signup") || document.referrer.includes("activate")) {
-            window.location.replace("/")
+        if (document.referrer.includes("signup")) {
+           document.location.href = `${baseUrl}`;
+        }
+        if(document.referrer.includes("activate")){
+            document.location.href = `${baseUrl}`;
         }
         window.location = document.referrer;
     }

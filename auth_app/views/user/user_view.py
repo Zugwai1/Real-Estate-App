@@ -78,7 +78,7 @@ class UserView(APIView):
                 last_name=request.data["last_name"],
                 phone_number=request.data["phone_number"],
                 nationality=request.data["nationality"],
-                middle_name=request.data["middle_name"],
+                middle_name=request.data.get("middle_name", " "),
                 password=request.data["password"],
                 DOB=request.data["dob"],
                 country=request.data["country"],

@@ -11,7 +11,7 @@ class CreateDto:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
 
 
 @dataclass
@@ -22,7 +22,7 @@ class ListDto:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
 
 
 @dataclass
@@ -32,7 +32,7 @@ class EditDto:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
 
 
 @dataclass
@@ -43,7 +43,7 @@ class GetDto:
     city: str
     state: str
     country: str
-    postal_code: int
+    postal_code: str
 
 
 @dataclass
