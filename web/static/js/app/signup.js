@@ -53,6 +53,7 @@ document.getElementById('registration-form').addEventListener('submit', async (e
     let isValid = document.getElementById('registration-form').checkValidity() ? [true, "Form validated"] : [false, "Please ensure you fill all forms correctly"]
     let isPasswordValid =
         validatePassword(document.getElementById('password'), document.getElementById('confirm_password')) ? [true, "Password validated"] : [false, "Password dose not match"]
+
     let data = new FormData(e.target)
     if (isValid[0] && isPasswordValid[0]) {
         let response = await fetch(`${baseUrl}api/v1/users/`, {
